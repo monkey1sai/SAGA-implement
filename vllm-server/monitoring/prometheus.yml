@@ -1,0 +1,33 @@
+# ==================================================
+# Prometheus 配置 - vLLM 監控
+# ==================================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'vllm-monitor'
+
+# -------------------- 告警規則 --------------------
+rule_files:
+  # - "alert_rules.yml"
+
+# -------------------- 抓取配置 --------------------
+scrape_configs:
+  # vLLM 服務指標
+  - job_name: 'vllm'
+    static_configs:
+      - targets: ['vllm:8000']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 10s
+
+  # Nginx 指標 (需要 nginx-prometheus-exporter)
+  # - job_name: 'nginx'
+  #   static_configs:
+  #     - targets: ['nginx-exporter:9113']
+
+  # Prometheus 自我監控
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

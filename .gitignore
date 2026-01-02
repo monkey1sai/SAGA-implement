@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+*.egg
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# vLLM Server - Runtime files
+vllm-server/models/
+vllm-server/logs/
+vllm-server/certs/
+vllm-server/.env
+
+# Docker
+*.log
+
+# Temp files
+*.tmp
+*.bak
+check_health.py
+vllm-server/vllm_full_log.txt
+vllm-server/vllm_log.txt
