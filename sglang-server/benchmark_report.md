@@ -1,4 +1,4 @@
-# vLLM Server (SGLang) 性能測試報告
+# sglang Server (SGLang) 性能測試報告
 
 ## 測試環境
 - **日期**: 2026年1月2日
@@ -50,4 +50,4 @@
 - **擴展性**: 若未來需要處理更長文本，可調整 `docker-compose.sglang.yml` 中的 `context-length` 參數，但目前 8192 的設定在 8GB 顯存下運作良好。
 
 ---
-*報告產生於：vLLM-Server 測試腳本*
+*報告產生於：sglang-server 測試腳本*

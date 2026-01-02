@@ -32,8 +32,8 @@ def load_env_file(filepath):
 
 load_env_file('.env')
 
-VLLM_URL = "http://localhost:8082/v1/chat/completions"
-API_KEY = os.getenv("VLLM_API_KEY", "your-secure-api-key-here")
+SGLANG_URL = "http://localhost:8082/v1/chat/completions"
+API_KEY = os.getenv("SGLANG_API_KEY", "your-secure-api-key-here")
 MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
 
 class SystemMonitor:
@@ -137,7 +137,7 @@ async def make_request(session, req_id):
     tokens = 0
     
     try:
-        async with session.post(VLLM_URL, json=payload, headers={"Authorization": f"Bearer {API_KEY}"}) as resp:
+        async with session.post(SGLANG_URL, json=payload, headers={"Authorization": f"Bearer {API_KEY}"}) as resp:
             async for line in resp.content:
                 line = line.decode('utf-8').strip()
                 if line.startswith("data: ") and line != "data: [DONE]":
