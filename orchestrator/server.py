@@ -45,6 +45,72 @@ def _optional_str(obj: Dict[str, Any], key: str) -> Optional[str]:
     return val
 
 
+def _optional_int_env(name: str) -> Optional[int]:
+    v = os.getenv(name)
+    if v is None:
+        return None
+    v = v.strip()
+    if not v:
+        return None
+    try:
+        return int(v)
+    except Exception:
+        raise ValueError(f"環境變數 {name} 必須是整數")
+
+
+def _optional_float_env(name: str) -> Optional[float]:
+    v = os.getenv(name)
+    if v is None:
+        return None
+    v = v.strip()
+    if not v:
+        return None
+    try:
+        return float(v)
+    except Exception:
+        raise ValueError(f"環境變數 {name} 必須是數字")
+
+
+def _build_sampling_overrides() -> Dict[str, Any]:
+    """
+    Build optional OpenAI-compatible sampling params for SGLang.
+    - Empty/invalid values are ignored.
+    - <=0 for integer params is treated as unset.
+    """
+
+    overrides: Dict[str, Any] = {}
+
+    max_tokens = _optional_int_env("SGLANG_MAX_TOKENS")
+    if max_tokens is not None and max_tokens > 0:
+        overrides["max_tokens"] = max_tokens
+
+    temperature = _optional_float_env("SGLANG_TEMPERATURE")
+    if temperature is not None and temperature >= 0:
+        overrides["temperature"] = temperature
+
+    top_p = _optional_float_env("SGLANG_TOP_P")
+    if top_p is not None and 0 <= top_p <= 1:
+        overrides["top_p"] = top_p
+
+    top_k = _optional_int_env("SGLANG_TOP_K")
+    if top_k is not None and top_k > 0:
+        overrides["top_k"] = top_k
+
+    repetition_penalty = _optional_float_env("SGLANG_REPETITION_PENALTY")
+    if repetition_penalty is not None and repetition_penalty > 0:
+        overrides["repetition_penalty"] = repetition_penalty
+
+    presence_penalty = _optional_float_env("SGLANG_PRESENCE_PENALTY")
+    if presence_penalty is not None:
+        overrides["presence_penalty"] = presence_penalty
+
+    frequency_penalty = _optional_float_env("SGLANG_FREQUENCY_PENALTY")
+    if frequency_penalty is not None:
+        overrides["frequency_penalty"] = frequency_penalty
+
+    return overrides
+
+
 @dataclass(frozen=True)
 class ChatRequest:
     prompt: str
@@ -130,16 +196,20 @@ async def _stream_sglang_deltas(
 ) -> Dict[str, Any]:
     sglang_url = _build_sglang_url()
     api_key = os.getenv("SGLANG_API_KEY", "")
-    model = os.getenv("SGLANG_MODEL", "Qwen/Qwen2.5-1.5B-Instruct")
+    model = os.getenv("SGLANG_MODEL", "twinkle-ai/Llama-3.2-3B-F1-Instruct")
 
     if not api_key:
         raise RuntimeError("缺少環境變數 SGLANG_API_KEY")
 
-    payload: Dict[str, Any] = {
-        "model": model,
-        "messages": [{"role": "user", "content": prompt}],
-        "stream": True,
-    }
+    system_prompt = os.getenv("SGLANG_SYSTEM_PROMPT", "").strip()
+
+    messages: List[Dict[str, str]] = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
+
+    payload: Dict[str, Any] = {"model": model, "messages": messages, "stream": True}
+    payload.update(_build_sampling_overrides())
 
     headers = {"Authorization": f"Bearer {api_key}"}
     tool_acc: Dict[int, ToolCallAccum] = {}

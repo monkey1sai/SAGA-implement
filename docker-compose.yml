@@ -11,6 +11,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=0
       - CUDA_VISIBLE_DEVICES=0
       - HF_TOKEN=${HF_TOKEN}
+      - HUGGINGFACE_HUB_TOKEN=${HF_TOKEN}
       - SGLANG_API_KEY=${SGLANG_API_KEY}
     ports:
       - "8082:30000" # Mapped to host 8082 to avoid conflict with sglang (8081)
@@ -20,7 +21,7 @@ services:
       - ./sglang-server/logs:/app/logs
     command: >
       python3 -m sglang.launch_server
-      --model-path Qwen/Qwen2.5-1.5B-Instruct
+      --model-path ${SGLANG_MODEL:-twinkle-ai/Llama-3.2-3B-F1-Instruct}
       --port 30000
       --host 0.0.0.0
       --mem-fraction-static 0.8
@@ -113,6 +114,15 @@ services:
       - ORCH_API_KEY=${ORCH_API_KEY:-}
       - SGLANG_BASE_URL=http://sglang:30000
       - SGLANG_API_KEY=${SGLANG_API_KEY}
+      - SGLANG_MODEL=${SGLANG_MODEL:-twinkle-ai/Llama-3.2-3B-F1-Instruct}
+      - SGLANG_MAX_TOKENS=${SGLANG_MAX_TOKENS:-512}
+      - SGLANG_SYSTEM_PROMPT=${SGLANG_SYSTEM_PROMPT:-Answer in Traditional Chinese. Do not claim to be Qwen. Avoid repeating phrases. Keep self-intro under 80 chars.}
+      - SGLANG_TEMPERATURE=${SGLANG_TEMPERATURE:-0.5}
+      - SGLANG_TOP_P=${SGLANG_TOP_P:-0.85}
+      - SGLANG_TOP_K=${SGLANG_TOP_K:-20}
+      - SGLANG_REPETITION_PENALTY=${SGLANG_REPETITION_PENALTY:-1.2}
+      - SGLANG_PRESENCE_PENALTY=${SGLANG_PRESENCE_PENALTY:-0.2}
+      - SGLANG_FREQUENCY_PENALTY=${SGLANG_FREQUENCY_PENALTY:-0.2}
       - WS_TTS_URL=ws://ws_gateway_tts:9000/tts
       - WS_TTS_API_KEY=${WS_TTS_API_KEY:-}
       - TTS_FLUSH_MIN_CHARS=${TTS_FLUSH_MIN_CHARS:-12}
@@ -151,6 +161,10 @@ services:
         condition: service_healthy
     ports:
       - "8080:80"
+    environment:
+      - ORCHESTRATOR_UPSTREAM=${ORCHESTRATOR_UPSTREAM:-orchestrator:9100}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost/healthz"]

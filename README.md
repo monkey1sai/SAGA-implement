@@ -4,9 +4,20 @@ Run from repo root:
 
 ```powershell
 cp .env.example .env
-# edit .env and set SGLANG_API_KEY (and HF_TOKEN if needed)
-docker compose up -d --build
+# edit .env and set SGLANG_API_KEY (and HF_TOKEN/SGLANG_MODEL if needed)
+powershell -ExecutionPolicy Bypass -File scripts/up.ps1
 ```
+
+Tip: to reduce repetitive outputs, tune these in `.env`:
+- `SGLANG_SYSTEM_PROMPT`
+- `SGLANG_TEMPERATURE`, `SGLANG_TOP_P`, `SGLANG_TOP_K`
+- `SGLANG_REPETITION_PENALTY`
+
+Tip: to debug `orchestrator/server.py` locally while keeping `web` (nginx) at `http://localhost:8080/`:
+1) `docker compose stop orchestrator`
+2) set `.env`: `ORCHESTRATOR_UPSTREAM=host.docker.internal:9100`
+3) `docker compose up -d --build --force-recreate --no-deps web`
+4) VSCode F5 to start local orchestrator (listen on `0.0.0.0:9100`)
 
 ---
 
@@ -39,7 +50,7 @@ cp .env.example .env
 ### 2. 啟動服務
 
 ```powershell
-docker compose up -d --build
+powershell -ExecutionPolicy Bypass -File scripts/up.ps1
 ```
 
 > Compose 會一併啟動：
@@ -50,13 +61,35 @@ docker compose up -d --build
 >
 > 備註：SGLang 的 `/health` 預期回 `200` 且 body 為空；可用 `curl -i http://localhost:8082/health` 查看狀態碼與 headers。
 
+### 常見錯誤：`container sglang-server is unhealthy`
+
+這通常代表 SGLang 沒有通過 healthcheck（例如模型下載失敗、權限不足、或 GPU OOM）。
+
+請直接執行：
+
+```powershell
+docker compose ps
+docker compose logs --tail 200 sglang
+curl -i http://localhost:8082/health
+curl http://localhost:8082/v1/models -H "Authorization: Bearer <SGLANG_API_KEY>"
+```
+
+常見原因：
+- `HF_TOKEN` 缺失/無權限 → HuggingFace 模型下載失敗（尤其 Llama/Gemma）
+- `.env` 的 `SGLANG_MODEL` 指到不存在或需要授權的 repo
+- GPU VRAM 不足 / OOM（看 logs 關鍵字：`OOM`, `CUDA out of memory`）
+
+### 若 Web 頁面卡死/LLM 一直輸出
+
+可在 `.env` 設定 `SGLANG_MAX_TOKENS` 限制輸出長度（預設 `512`），避免模型長時間輸出導致瀏覽器累積大量文字而卡住。
+
 ### 遠端 client 直連 SGLang（需帶 SGLANG_API_KEY）
 
 ```powershell
 curl http://<HOST_IP>:8082/v1/chat/completions `
   -H "Authorization: Bearer <SGLANG_API_KEY>" `
   -H "Content-Type: application/json" `
-  -d '{\"model\":\"Qwen/Qwen2.5-1.5B-Instruct\",\"messages\":[{\"role\":\"user\",\"content\":\"你好\"}],\"stream\":false}'
+  -d '{\"model\":\"twinkle-ai/Llama-3.2-3B-F1-Instruct\",\"messages\":[{\"role\":\"user\",\"content\":\"你好\"}],\"stream\":false}'
 ```
 
 ### 3. 執行壓力測試
@@ -132,8 +165,9 @@ docker compose up -d --build ws_gateway_tts
 
 | 模型 | VRAM 用量 | 說明 |
 |-----|----------|------|
+| `twinkle-ai/Llama-3.2-3B-F1-Instruct` | ~6GB | **預設**（可由 `.env` 的 `SGLANG_MODEL` 覆寫） |
 | `Qwen/Qwen2.5-3B-Instruct` | ~6GB | 中英文表現佳 |
-| `Qwen/Qwen2.5-1.5B-Instruct` | ~3GB | **預設**，輕量且速度極快 |
+| `Qwen/Qwen2.5-1.5B-Instruct` | ~3GB | 輕量且速度極快 |
 
 ## 🔧 核心優勢 (SGLang)
 

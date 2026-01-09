@@ -17,6 +17,7 @@ build/
 .env
 .env.*
 !.env.example
+hf-apt-key
 
 # IDEs
 .vscode/
@@ -32,6 +33,7 @@ desktop.ini
 # Logs / outputs
 logs/*.json
 *.log
+logs/*.txt
 
 # Audio artifacts
 *.wav

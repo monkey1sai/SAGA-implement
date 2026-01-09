@@ -13,7 +13,7 @@
 
 ```powershell
 cp .env.example .env
-docker compose up -d --build
+powershell -ExecutionPolicy Bypass -File scripts/up.ps1
 ```
 
 (option B: run ws_gateway_tts manually for dev/debug)
@@ -109,6 +109,24 @@ curl http://localhost:9000/healthz
 ---
 
 ## 5. 常見故障排查（最常遇到）
+
+### 5.0 `container sglang-server is unhealthy`
+
+這通常代表 SGLang 沒有通過 healthcheck（例如模型下載失敗、權限不足、或 GPU OOM）。
+
+建議依序執行：
+
+```powershell
+docker compose ps
+docker compose logs --tail 200 sglang
+curl -i http://localhost:8082/health
+curl http://localhost:8082/v1/models -H "Authorization: Bearer <SGLANG_API_KEY>"
+```
+
+常見原因：
+- `HF_TOKEN` 缺失/無權限 → HuggingFace 模型下載失敗（尤其 Llama/Gemma）
+- `.env` 的 `SGLANG_MODEL` 指到不存在或需要授權的 repo
+- GPU VRAM 不足 / OOM（看 logs 關鍵字：`OOM`, `CUDA out of memory`）
 
 ### 5.1 `--duration 60` 但實際提早結束
 

@@ -239,6 +239,14 @@
             <button class="primary" id="btnSendPrompt" disabled>Send prompt</button>
             <button class="danger" id="btnCancel" disabled>Cancel</button>
             <button id="btnClearLog">Clear log</button>
+            <label class="pill" title="控制 Event log 詳細程度（建議預設關閉避免卡頓）" style="user-select: none">
+              <input id="chkVerboseLog" type="checkbox" style="width: auto; margin: 0" />
+              Verbose log
+            </label>
+            <label class="pill" title="是否記錄 audio_chunk（包含大量 base64，會很容易卡）" style="user-select: none">
+              <input id="chkLogAudioChunk" type="checkbox" style="width: auto; margin: 0" />
+              Log audio_chunk
+            </label>
           </div>
 
           <div class="hint" style="margin-top: 10px">
@@ -304,11 +312,42 @@
         return JSON.stringify(obj, null, 2);
       }
 
+      const LOG_MAX_LINES = 250;
+      const LLM_MAX_CHARS = 20000;
+      let logLines = [];
+      let logRenderScheduled = false;
+
+      function _trimLogLines() {
+        if (logLines.length > LOG_MAX_LINES) {
+          logLines = logLines.slice(logLines.length - LOG_MAX_LINES);
+        }
+      }
+
+      function _renderLogIfNeeded() {
+        logRenderScheduled = false;
+        _trimLogLines();
+        $("preLog").textContent = logLines.join("\n");
+      }
+
+      function _scheduleRenderLog() {
+        if (logRenderScheduled) return;
+        logRenderScheduled = true;
+        requestAnimationFrame(_renderLogIfNeeded);
+      }
+
       function log(line, obj) {
         const ts = new Date().toISOString().slice(11, 23);
-        const msg = obj ? `${ts} ${line}\n${safeJson(obj)}\n` : `${ts} ${line}\n`;
-        const pre = $("preLog");
-        pre.textContent = msg + pre.textContent;
+        const msg = obj ? `${ts} ${line}\n${safeJson(obj)}` : `${ts} ${line}`;
+        logLines.push(msg);
+        _scheduleRenderLog();
+      }
+
+      function appendLlmDelta(delta) {
+        const pre = $("preLlm");
+        pre.textContent += delta;
+        if (pre.textContent.length > LLM_MAX_CHARS) {
+          pre.textContent = pre.textContent.slice(pre.textContent.length - LLM_MAX_CHARS);
+        }
       }
 
       function buildWsUrl(baseUrl, apiKey) {
@@ -552,6 +591,7 @@
       }
 
       $("btnClearLog").addEventListener("click", () => {
+        logLines = [];
         $("preLog").textContent = "";
       });
 
@@ -582,14 +622,37 @@
               log("← message (non-json)", { data: String(ev.data).slice(0, 2000) });
               return;
             }
-            log("← recv", msg);
+            const verbose = $("chkVerboseLog").checked;
+            const logAudioChunk = $("chkLogAudioChunk").checked;
+            if (verbose) {
+              if (msg?.type === "audio_chunk" && !logAudioChunk) {
+                const slim = {
+                  type: msg.type,
+                  session_id: msg.session_id,
+                  seq: msg.seq,
+                  chunk_seq: msg.chunk_seq,
+                  unit_index_start: msg.unit_index_start,
+                  unit_index_end: msg.unit_index_end,
+                  units_text: (msg.units_text || "").slice(0, 120),
+                  audio_format: msg.audio_format,
+                  sample_rate: msg.sample_rate,
+                  channels: msg.channels,
+                  audio_base64_len: (msg.audio_base64 || "").length,
+                };
+                log("← recv", slim);
+              } else {
+                log("← recv", msg);
+              }
+            } else if (msg?.type === "error" || msg?.type === "orchestrator_error") {
+              log("← error", msg);
+            }
 
             if (msg.type === "orchestrator_start") {
               return;
             }
 
             if (msg.type === "llm_delta") {
-              $("preLlm").textContent += msg.delta || "";
+              appendLlmDelta(msg.delta || "");
               return;
             }
 
@@ -731,6 +794,8 @@
       updateDebug();
       setConnState("DISCONNECTED");
       setUiConnected(false);
+      $("chkVerboseLog").checked = false;
+      $("chkLogAudioChunk").checked = false;
     </script>
   </body>
 </html>

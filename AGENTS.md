@@ -23,7 +23,7 @@
 
 ## Runtime & Deployment Notes
 - 服務入口：預設對外埠 `8082`（容器內 `30000`）。
-- 模型：`Qwen/Qwen2.5-1.5B-Instruct`。
+- 模型：預設 `twinkle-ai/Llama-3.2-3B-F1-Instruct`（可由 `.env` 的 `SGLANG_MODEL` 覆寫）。
 - 特性：RadixAttention（系統提示快取、降低延遲）、Continuous Batching（高併發）。
 - 環境：Windows（含 WSL2）或 Linux；需 NVIDIA GPU 與 Docker Desktop + NVIDIA Container Toolkit。
 

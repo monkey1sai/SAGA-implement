@@ -18,7 +18,7 @@
 ```powershell
 $env:SGLANG_BASE_URL="http://localhost:8082"
 $env:SGLANG_API_KEY="your-sglang-key"
-$env:SGLANG_MODEL="Qwen/Qwen2.5-1.5B-Instruct"
+$env:SGLANG_MODEL="twinkle-ai/Llama-3.2-3B-F1-Instruct"
 $env:WS_TTS_URL="ws://localhost:9000/tts"
 ..\.venv\Scripts\python.exe -m orchestrator.server
 ```
@@ -38,10 +38,17 @@ $env:WS_TTS_URL="ws://localhost:9000/tts"
 | `ORCH_API_KEY` | (空) | 若設定，前端需帶 `?api_key=` 或 `Authorization: Bearer` |
 | `SGLANG_BASE_URL` | `http://localhost:8082` | SGLang base URL |
 | `SGLANG_API_KEY` | (必填) | SGLang API key（只在後端） |
-| `SGLANG_MODEL` | `Qwen/Qwen2.5-1.5B-Instruct` | 模型名稱 |
+| `SGLANG_MODEL` | `twinkle-ai/Llama-3.2-3B-F1-Instruct` | 模型名稱 |
+| `SGLANG_MAX_TOKENS` | `512` | LLM 輸出上限（避免模型長時間輸出造成前端卡死；<=0 代表不限制） |
+| `SGLANG_SYSTEM_PROMPT` | (內建預設) | system prompt（可用來避免自稱/重複；可在環境變數覆寫） |
+| `SGLANG_TEMPERATURE` | `0.5` | sampling: temperature |
+| `SGLANG_TOP_P` | `0.85` | sampling: top_p |
+| `SGLANG_TOP_K` | `20` | sampling: top_k |
+| `SGLANG_REPETITION_PENALTY` | `1.2` | sampling: repetition_penalty（>1 抑制重複） |
+| `SGLANG_PRESENCE_PENALTY` | `0.2` | sampling: presence_penalty |
+| `SGLANG_FREQUENCY_PENALTY` | `0.2` | sampling: frequency_penalty |
 | `WS_TTS_URL` | `ws://localhost:9000/tts` | ws_gateway_tts 的 WS 端點 |
 | `WS_TTS_API_KEY` | (空) | ws_gateway_tts 的 Bearer key（若有） |
 | `TTS_FLUSH_MIN_CHARS` | `12` | delta->TTS buffering：累積到此字數才送一次 `text_delta` |
 | `TTS_FLUSH_ON_PUNCT` | `true` | 遇到標點（見程式內 `PUNCTUATION`）就立刻送 `text_delta` |
 | `ALLOW_CLIENT_TTS_URL` | `false` | 允許前端在 request 中覆寫 `ws_tts_url`（僅建議本機除錯） |
-

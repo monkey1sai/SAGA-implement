@@ -1,5 +1,5 @@
 FROM nginx:1.27-alpine
 
-COPY docker/web_nginx.conf /etc/nginx/nginx.conf
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY docker/web_default.conf.template /etc/nginx/templates/default.conf.template
 COPY web_client /usr/share/nginx/html
-
