@@ -215,25 +215,46 @@ docker compose up -d --build ws_gateway_tts
 ## SAGA MVP Demo
 
 ```powershell
-pip install -r requirements.txt
-python -m examples.demo_run
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m examples.demo_run
 ```
 
 輸出會產生在 `runs/<run_id>/`（trace.db / graph.json / workflow.mmd）。
 
 可用參數：
 ```powershell
-python -m examples.demo_run --beam-width 4 --keywords 測試,品質
-python -m examples.demo_run --config path/to/config.json
-python -m examples.demo_run --use-sglang --sglang-api-key <SGLANG_API_KEY>
-python -m examples.demo_run --use-llm-modules --use-sglang --sglang-api-key <SGLANG_API_KEY>
+.\.venv\Scripts\python.exe -m examples.demo_run --beam-width 4 --keywords 測試,品質
+.\.venv\Scripts\python.exe -m examples.demo_run --config path/to/config.json
+.\.venv\Scripts\python.exe -m examples.demo_run --use-sglang --sglang-api-key <SGLANG_API_KEY>
+.\.venv\Scripts\python.exe -m examples.demo_run --use-llm-modules --use-sglang --sglang-api-key <SGLANG_API_KEY>
 ```
 
 ## SAGA Server（WebSocket Observability）
 
 ```powershell
-pip install -r requirements.txt
-uvicorn saga_server.app:app --host 0.0.0.0 --port 9200
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m uvicorn saga_server.app:app --host 0.0.0.0 --port 9200
 ```
 
 WebSocket: `ws://localhost:9200/ws/run`
+
+## SAGA UI（Mermaid Render）
+
+### 開發模式
+```powershell
+cd web_client
+npm install
+npm run dev
+```
+
+UI 預設會在 `http://localhost:5173/`，並透過 proxy 連到 `ws://localhost:9200/ws/run`。
+
+### Docker（web + saga_server）
+```powershell
+docker compose up -d --build saga_server web
+```
+
+UI 入口：`http://localhost:8080/`  
+WebSocket（同網域）：`ws://localhost:8080/ws/run`  
+Run artifacts（同網域）：`http://localhost:8080/runs/<run_id>/workflow.mmd`
