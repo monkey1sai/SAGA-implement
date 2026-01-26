@@ -57,8 +57,9 @@ const TEMPLATES = {
 
 export default function App() {
   const [wsUrl, setWsUrl] = useState(defaultWsUrl);
-  const [text, setText] = useState("這是一段測試文字");
-  const [keywords, setKeywords] = useState("測試");
+  // Initialize with symbolic_regression template values
+  const [text, setText] = useState(TEMPLATES.symbolic_regression.text);
+  const [keywords, setKeywords] = useState(TEMPLATES.symbolic_regression.keywords);
   const [events, setEvents] = useState([]);
   const [runId, setRunId] = useState("");
   const [graphJson, setGraphJson] = useState("");
@@ -68,7 +69,7 @@ export default function App() {
   const logsEndRef = useRef(null);
 
   // New state for advanced features
-  const [mode, setMode] = useState("semi-pilot");
+  const [mode, setMode] = useState(TEMPLATES.symbolic_regression.mode);
   const [uiState, setUiState] = useState(UI_STATES.IDLE);
   const [iteration, setIteration] = useState(0);
   const [analysisReport, setAnalysisReport] = useState(null);
@@ -77,19 +78,19 @@ export default function App() {
   // Current best result (for stop/export)
   const [currentResult, setCurrentResult] = useState(null);
 
-  // Termination parameters
-  const [maxIters, setMaxIters] = useState(10);
-  const [convergenceEps, setConvergenceEps] = useState(0.001);
-  const [patience, setPatience] = useState(3);
+  // Termination parameters - use symbolic_regression defaults
+  const [maxIters, setMaxIters] = useState(TEMPLATES.symbolic_regression.maxIters);
+  const [convergenceEps, setConvergenceEps] = useState(TEMPLATES.symbolic_regression.convergenceEps);
+  const [patience, setPatience] = useState(TEMPLATES.symbolic_regression.patience);
 
-  // Inner loop parameters (Optimizer)
-  const [innerIterations, setInnerIterations] = useState(2);
-  const [batchSize, setBatchSize] = useState(4);
-  const [scoringTimeoutS, setScoringTimeoutS] = useState(15.0);
+  // Inner loop parameters (Optimizer) - use symbolic_regression defaults
+  const [innerIterations, setInnerIterations] = useState(TEMPLATES.symbolic_regression.innerIterations);
+  const [batchSize, setBatchSize] = useState(TEMPLATES.symbolic_regression.batchSize);
+  const [scoringTimeoutS, setScoringTimeoutS] = useState(TEMPLATES.symbolic_regression.scoringTimeoutS);
 
-  // Objective parameters
-  const [weights, setWeights] = useState("0.33, 0.34, 0.33");
-  const [thresholds, setThresholds] = useState("0.7, 0.7, 0.7");
+  // Objective parameters - use symbolic_regression defaults
+  const [weights, setWeights] = useState(TEMPLATES.symbolic_regression.weights);
+  const [thresholds, setThresholds] = useState(TEMPLATES.symbolic_regression.thresholds);
 
   const keywordList = useMemo(
     () =>
