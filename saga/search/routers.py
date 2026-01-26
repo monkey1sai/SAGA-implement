@@ -70,65 +70,67 @@ class MathStrategy(PromptStrategy):
     """
     
     def build_prompt(self, population: List[str], feedback: AnalysisReport, num: int) -> str:
-        top = population[0] if population else ""
+        top = population[0] if population else "y = x"
         
-        # Robust data detection
-        is_data = False
-        dataset_str = "[(0,0), (1,1)] # Default"
-        current_formula = top
+        # Robust data retrieval from analysis report
+        dataset = []
+        if feedback.raw_data and "dataset" in feedback.raw_data:
+            dataset = feedback.raw_data["dataset"]
         
-        # If 'top' looks like a list of points (contains typical data structure)
-        if top and top.count("(") > 1 and top.count(",") > 2:
-             dataset_str = top
-             current_formula = "y = 0.0 * x  # Initial placeholder"
-             is_data = True
-        elif not top:
-             current_formula = "y = 0.0 * x"
+        # Format dataset for prompt
+        if dataset:
+            # Show up to 10 points to avoid overflowing context
+            dataset_str = f"{dataset[:10]}"
+            if len(dataset) > 10:
+                dataset_str += f" ... (total {len(dataset)} points)"
+        else:
+            dataset_str = "[(0,0), (1,1)] # Default (No data found)"
 
-        # Construct Feedback Message (The "Communication" part)
-        feedback_msg = "No feedback yet."
+        current_formula = top
+
+        # Construct Feedback Message (Traditional Chinese)
+        feedback_msg = "尚無反饋。"
         if feedback:
             feedback_msg = f"""
-- Current Score Impact: {feedback.improvement_trend:.2%} improvement
-- Bottleneck: {feedback.bottleneck} (This metric needs work!)
-- Reviewer Suggestion: {', '.join(feedback.suggested_constraints)}
+- 當前分數提升: {feedback.improvement_trend:.2%}
+- 瓶頸目標: {feedback.bottleneck}
+- 審查員建議: {', '.join(feedback.suggested_constraints)}
 """
 
-        prompt = f"""You are a Mathematical Reasoning Agent participating in an evolutionary code review loop.
+        prompt = f"""你是一個參與演化式代碼審查循環的數學推理代理 (Mathematical Reasoning Agent)。
 
-# PROJECT CONTEXT
-We are trying to find a python formula `y = f(x)` that fits the following dataset:
+# 專案背景 (PROJECT CONTEXT)
+我們正在尋找一個 Python 公式 `y = f(x)` 來擬合以下數據集：
 {dataset_str}
 
-# CURRENT STATUS
-**Current Best Formula**: `{current_formula}`
-**Reviewer Feedback**:
+# 當前狀態 (CURRENT STATUS)
+**當前最佳公式**: `{current_formula}`
+**審查員反饋**:
 {feedback_msg}
 
-# YOUR MISSION
-Communicate with the Reviewer by proposing {num} BETTER formulas.
-1. **Analyze the Feedback**: If the previous formula failed (e.g. error too high), hypothesize why (e.g. "needs quadratic term", "coefficient too small").
-2. **Iterate**: Propose variations. 
-   - If current is `x`, try `x**2`. 
-   - If current is `x**2`, try `x**2 + x`.
-3. **Format**: Output valid Python expressions only.
+# 你的任務 (YOUR MISSION)
+與審查員溝通並提出 {num} 個**更好**的公式。
+1. **分析反饋**: 如果之前的公式失敗了（例如誤差太大），請假設原因（例如“需要二次項”，“係數太小”）。
+2. **迭代**: 提出變體。
+   - 如果當前是 `x`，嘗試 `x**2`。
+   - 如果當前是 `x**2`，嘗試 `x**2 + x` 或 `(x-1)**2`。
+3. **格式**: 僅輸出有效的 Python 表達式。
 
-# PROPOSAL FORMAT
+# 提案格式 (PROPOSAL FORMAT)
 FORMULA: <expression>
 
-# EXAMPLES
+# 範例
 dataset: [(1,1), (2,4), (3,9)] -> FORMULA: x**2
 dataset: [(1,3), (2,5), (3,7)] -> FORMULA: 2*x + 1
 
-# YOUR TURN (Propose {num} formulas):
+# 輪到你了 (請提出 {num} 個公式):
 """
         return prompt
 
     def parse_candidates(self, raw_output: str, expected: int) -> List[str]:
         import re
         candidates = []
-        # Strict regex: allow numbers, x, operators, parens, equals, spaces, and math functions
-        # Reject anything with Chinese, or alphabets other than valid math tokens
+        # Regex to allow standard python math characters
         allowed_pattern = re.compile(r"^[0-9a-zA-Z\.\+\-\*\/\(\)\,\=\s\_]+$")
         
         for line in raw_output.split("\n"):
@@ -137,13 +139,19 @@ dataset: [(1,3), (2,5), (3,7)] -> FORMULA: 2*x + 1
             
             if clean.startswith("FORMULA:"):
                 content = clean.split("FORMULA:", 1)[1].strip()
-            # Allow "Communication" style output where LLM might say "Try adding x: ..."
-            elif ":" in clean and "x" in clean:
-                 parts = clean.split(":")
-                 potential = parts[-1].strip()
-                 if any(op in potential for op in ["+", "-", "*", "/", "**"]):
-                     content = potential
-            
+            # Handle list style output e.g. "1. x**2" or "2. FORMULA: ..."
+            elif re.match(r"^\d+\.\s*", clean):
+                parts = re.split(r"^\d+\.\s*", clean)
+                if len(parts) > 1:
+                    potential = parts[1].strip()
+                    # Strip FORMULA: if present in list item
+                    if potential.startswith("FORMULA:"):
+                        potential = potential.split("FORMULA:", 1)[1].strip()
+                        
+                    # Basic validation: must look like math
+                    if any(op in potential for op in ["+", "-", "*", "/", "**", "x"]):
+                        content = potential
+
             if content:
                 # 1. Sanity Check: Length and Garbage
                 if content.count(",") > 3 or content.count("(") > 4 or len(content) > 100:
@@ -154,7 +162,7 @@ dataset: [(1,3), (2,5), (3,7)] -> FORMULA: 2*x + 1
                     logger.warning(f"[MathStrategy] Filtered invalid content: {content}")
                     continue
                 
-                # 3. Block common non-math words just in case regex allows letters
+                # 3. Block common non-math words just in case
                 if any(word in content.lower() for word in ["improve", "adjust", "formula", "candidate", "改進", "調整", "optimized"]):
                     continue
                     

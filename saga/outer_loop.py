@@ -201,6 +201,8 @@ class OuterLoop:
             yield LogEvent("info", "Step 1: Analyzing current state metrics...")
             try:
                 analysis_result = await self._run_async(self.analyzer.run, state)
+                # Inject dataset into analysis result so generators can see it
+                analysis_result["dataset"] = state.dataset
                 report = self._build_analysis_report(analysis_result, state.iteration)
                 state.analysis_reports.append(report)
                 yield LogEvent("success", f"Analysis complete. Found {report.pareto_count} pareto candidates.")
@@ -365,7 +367,7 @@ class OuterLoop:
         import asyncio
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, func, *args)
-    
+
     def _build_analysis_report(self, result: Dict[str, Any], iteration: int) -> AnalysisReport:
         """Build AnalysisReport from analyzer output."""
         return AnalysisReport(

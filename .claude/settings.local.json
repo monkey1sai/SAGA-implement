@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(python tests/verify_math_strategy.py:*)",
+      "Bash(..venvScriptsactivate)",
+      "Bash(python -m venv:*)",
+      "Bash(.venv/Scripts/python:*)",
+      "Bash(.venv/Scripts/pip install:*)",
+      "Skill(commit-commands:commit-push-pr)",
+      "Bash(git reset tmpclaude-* web_client/tmpclaude-*)"
     ]
   }
 }
