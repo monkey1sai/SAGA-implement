@@ -32,5 +32,9 @@ class SGLangAdapter:
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         req = urllib.request.Request(self.url, data=data, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.loads(r.read().decode("utf-8"))
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except Exception as e:
+            # Re-raise with more context
+            raise RuntimeError(f"SGLang API call failed: {e}") from e
