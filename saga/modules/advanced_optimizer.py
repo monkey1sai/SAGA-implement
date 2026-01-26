@@ -170,22 +170,38 @@ class AdvancedOptimizer:
         scoring_code: str,
         context: Dict[str, Any]
     ) -> List[List[float]]:
-        """Evaluate all candidates using sandbox."""
-        scores = []
+        """Evaluate all candidates using sandbox in parallel."""
+        import concurrent.futures
         
-        for candidate in candidates:
+        def _eval_one(cand: str) -> Optional[List[float]]:
             try:
-                ok, result = run_scoring(scoring_code, candidate, context, timeout_s=self.timeout)
+                ok, result = run_scoring(scoring_code, cand, context, timeout_s=self.timeout)
                 if ok and isinstance(result, list) and all(isinstance(x, (int, float)) for x in result):
-                    scores.append(result)
-                else:
-                    logger.warning(f"[AdvancedOptimizer] Invalid score for candidate: {result}")
-                    scores.append([0.0, 0.0, 0.0])  # Default score
-            except Exception as e:
-                logger.warning(f"[AdvancedOptimizer] Scoring failed for candidate: {e}")
-                scores.append([0.0, 0.0, 0.0])
+                    return result
+                return None
+            except Exception:
+                return None
+
+        # Use ThreadPoolExecutor to run scoring in parallel
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(len(candidates), 20)) as executor:
+            raw_results = list(executor.map(_eval_one, candidates))
+            
+        # Infer dimensions from any successful result
+        dims = 3
+        for r in raw_results:
+            if r is not None:
+                dims = len(r)
+                break
         
-        return scores
+        # Fill None with default scores
+        final_results = []
+        for r in raw_results:
+            if r is None:
+                final_results.append([0.0] * dims)
+            else:
+                final_results.append(r)
+                
+        return final_results
     
     def _create_feedback(self, scores: List[List[float]], iteration: int) -> AnalysisReport:
         """Create feedback report from scores."""
