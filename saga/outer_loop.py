@@ -165,11 +165,16 @@ class OuterLoop:
                 })
                 scoring_code = impl_result.get("scoring_code", "")
                 
-                # Score initial candidates
+                # Score initial candidates using evaluate only (no generation loop)
                 context = {"keywords": state.keywords}
-                seed_results = self.optimizer.optimize(
-                    state.candidates, scoring_code, state.weights, context
-                )
+                if hasattr(self.optimizer, "evaluate"):
+                    seed_results = self.optimizer.evaluate(
+                        state.candidates, scoring_code, context
+                    )
+                else:
+                    seed_results = self.optimizer.optimize(
+                        state.candidates, scoring_code, state.weights, context
+                    )
                 if seed_results:
                     state.update(seed_results)
                     yield LogEvent("success", f"Seed scoring complete. {len(seed_results)} candidates scored.")

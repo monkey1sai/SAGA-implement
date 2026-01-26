@@ -60,6 +60,26 @@ class AdvancedOptimizer:
             f"inner_iterations={self.inner_iterations}, batch_size={self.batch_size}"
         )
     
+    def evaluate(
+        self,
+        candidates: List[str],
+        scoring_code: str,
+        context: Optional[Dict[str, Any]] = None,
+    ) -> List[Tuple[str, List[float]]]:
+        """Evaluate candidates without generation (scoring only)."""
+        results = []
+        context = context or {}
+        for candidate in candidates:
+            try:
+                ok, result = run_scoring(scoring_code, candidate, context, timeout_s=self.timeout)
+                if ok and isinstance(result, list) and all(isinstance(x, (int, float)) for x in result):
+                    results.append((candidate, result))
+                else:
+                    logger.debug(f"[AdvancedOptimizer] Scoring failed for candidate: {candidate[:50]}...")
+            except Exception as e:
+                logger.debug(f"[AdvancedOptimizer] Scoring exception for candidate: {e}")
+        return results
+
     def optimize(
         self,
         candidates: List[str],
