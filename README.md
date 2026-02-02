@@ -1,286 +1,156 @@
-# Repo Root Entry
+# sglangRAG
 
-Run from repo root:
+> 高效能 LLM 聊天系統，整合 RAG (Retrieval-Augmented Generation) 檢索增強功能
 
-```powershell
-cp .env.example .env
-# edit .env and set SGLANG_API_KEY (and HF_TOKEN/SGLANG_MODEL if needed)
-powershell -ExecutionPolicy Bypass -File scripts/up.ps1
+## 🚀 功能特色
+
+- **SGLang 推論引擎** - 高效能 LLM 推論，支援 RadixAttention 與 Continuous Batching
+- **RAG 檢索增強** - 混合搜尋（Dense + Sparse + Rerank）提升回答品質
+- **即時串流** - WebSocket 即時串流回覆，低延遲使用者體驗
+- **模組化設計** - RAG 模組可獨立部署，移植到任意專案
+
+## 📦 專案結構
+
+```
+sglangRAG/
+├── rag_core/           # 獨立 RAG 套件（可 pip install）
+│   ├── embeddings/     # 嵌入模型（BGE-M3）
+│   ├── retrievers/     # 檢索器（Dense, Sparse, Hybrid）
+│   ├── rerankers/      # 重排序（BGE-Reranker）
+│   ├── ingest/         # 文件處理（PDF, DOCX, TXT）
+│   └── server.py       # FastAPI 獨立服務
+├── orchestrator/       # 協調器服務
+│   └── server.py       # WebSocket 聊天 + RAG 整合
+├── web_client/         # React 前端
+│   └── src/
+│       ├── App.jsx
+│       └── components/
+├── docker/             # Docker 配置
+└── docker-compose.yml
 ```
 
-Tip: to reduce repetitive outputs, tune these in `.env`:
-- `SGLANG_SYSTEM_PROMPT`
-- `SGLANG_TEMPERATURE`, `SGLANG_TOP_P`, `SGLANG_TOP_K`
-- `SGLANG_TEMPERATURE`, `SGLANG_TOP_P`, `SGLANG_TOP_K`
-- `SGLANG_REPETITION_PENALTY`
-- `SGLANG_TIMEOUT` (Default 300s, useful for complex prompts)
+## 🛠️ 快速開始
 
-Tip: 若 `sglang` logs 出現 `RuntimeError: Not enough memory`（多半是 KV cache 需要的 VRAM 不夠），優先調整：
-- `.env`：`MAX_MODEL_LEN=2048`（或更低）
-- `.env`：`SGLANG_MEM_FRACTION_STATIC=0.95`（不行再試 `0.98`）
-- 或改用量化權重：`.env` 設 `SGLANG_LOAD_FORMAT` / `SGLANG_QUANTIZATION`（例如 GGUF）
+### 前置需求
 
-Tip: to debug `orchestrator/server.py` locally while keeping `web` (nginx) at `http://localhost:8080/`:
-1) `docker compose stop orchestrator`
-2) set `.env`: `ORCHESTRATOR_UPSTREAM=host.docker.internal:9100`
-3) `docker compose up -d --build --force-recreate --no-deps web`
-4) VSCode F5 to start local orchestrator (listen on `0.0.0.0:9100`)
+- Docker Desktop + NVIDIA Container Toolkit
+- NVIDIA GPU（建議 8GB+ VRAM）
+- Node.js 18+（前端開發）
 
----
+### 1. 環境設定
 
-# SGLang Production Server
-
-本地部署的 SGLang 推論服務，針對 **RTX 4060 Ti 8GB** 優化，支援多人併發與複雜 Tool Use。
-
-## 📋 系統需求
-
-| 項目 | 需求 |
-|-----|------|
-| **GPU** | NVIDIA RTX 4060 Ti 8GB |
-| **驅動** | NVIDIA Driver 525+ |
-| **CUDA** | 12.1+ |
-| **Docker** | Docker Desktop with WSL2 |
-| **RAM** | 16GB+ (建議 32GB) |
-
-## 🚀 快速開始
-
-### 1. 配置環境
-
-```powershell
-# 複製環境變數範本
+```bash
 cp .env.example .env
-
-# 編輯 .env，填入必要配置
-# 務必設定 SGLANG_API_KEY
+# 編輯 .env，設定 SGLANG_API_KEY, HF_TOKEN 等
 ```
 
 ### 2. 啟動服務
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/up.ps1
+```bash
+docker compose up -d
 ```
 
-> Compose 會一併啟動：
-> - `sglang`：`http://<HOST_IP>:8082/`
-> - `ws_gateway_tts`：健康檢查 `http://<HOST_IP>:9000/healthz`
-> - `orchestrator`：健康檢查 `http://<HOST_IP>:9100/healthz`，WS `ws://<HOST_IP>:9100/chat`
-> - `web`：`http://<HOST_IP>:8080/`（同網域反代：`/api`、`/tts`、`/chat`）
->
-> 備註：SGLang 的 `/health` 預期回 `200` 且 body 為空；可用 `curl -i http://localhost:8082/health` 查看狀態碼與 headers。
+### 3. 存取介面
 
-### 常見錯誤：`container sglang-server is unhealthy`
+- **聊天介面**: http://localhost:8080
+- **RAG API**: http://localhost:8100
+- **SGLang API**: http://localhost:8082
 
-這通常代表 SGLang 沒有通過 healthcheck（例如模型下載失敗、權限不足、或 GPU OOM）。
+## 📚 RAG 模組使用
 
-請直接執行：
+### 獨立安裝
 
-```powershell
-docker compose ps
-docker compose logs --tail 200 sglang
-curl -i http://localhost:8082/health
-curl http://localhost:8082/v1/models -H "Authorization: Bearer <SGLANG_API_KEY>"
+```bash
+cd rag_core
+pip install -e .
 ```
 
-### 啟動中：`curl /health` 可能顯示 `Empty reply from server`
+### Python 使用範例
 
-這通常只是代表 **模型還在載入、服務尚未開始 listen**，屬正常現象（尤其首次啟動或更換模型時可能需要數分鐘）。
+```python
+from rag_core import HybridRetriever, BGEM3Embedding, BGEReranker
 
-建議以 Compose 狀態為準：
+# 初始化
+embedding = BGEM3Embedding()
+retriever = HybridRetriever(
+    embedding_provider=embedding,
+    persist_directory="./chroma_db",
+)
+reranker = BGEReranker()
 
-```powershell
-docker compose ps
+# 新增文件
+retriever.add_documents(["文件內容1", "文件內容2"])
+
+# 檢索
+results = retriever.search("查詢問題", top_k=5)
+
+# 重排序
+reranked = reranker.rerank("查詢問題", results, top_k=3)
 ```
 
-等 `sglang-server` 變成 `healthy` 後再打：
+### REST API
 
-```powershell
-curl -i http://localhost:8082/health
+```bash
+# 上傳文件
+curl -X POST http://localhost:8100/ingest/file \
+  -F "file=@document.pdf"
+
+# 檢索
+curl -X POST http://localhost:8100/search \
+  -H "Content-Type: application/json" \
+  -d '{"query": "問題內容", "top_k": 5}'
 ```
 
-常見原因：
-- `HF_TOKEN` 缺失/無權限 → HuggingFace 模型下載失敗（尤其 Llama/Gemma）
-- `.env` 的 `SGLANG_MODEL` 指到不存在或需要授權的 repo
-- GPU VRAM 不足 / OOM（看 logs 關鍵字：`OOM`, `CUDA out of memory`）
+## 🔧 環境變數
 
-### 若 Web 頁面卡死/LLM 一直輸出
+| 變數 | 說明 | 預設值 |
+|------|------|--------|
+| `SGLANG_API_KEY` | SGLang API 金鑰 | (必填) |
+| `SGLANG_MODEL` | 模型名稱 | `twinkle-ai/Llama-3.2-3B-F1-Instruct` |
+| `RAG_SERVICE_URL` | RAG 服務位址 | `http://localhost:8100` |
+| `RAG_EMBEDDING_MODEL` | 嵌入模型 | `BAAI/bge-m3` |
+| `RAG_RERANK_MODEL` | 重排序模型 | `BAAI/bge-reranker-v2-m3` |
 
-可在 `.env` 設定 `SGLANG_MAX_TOKENS` 限制輸出長度（預設 `512`），避免模型長時間輸出導致瀏覽器累積大量文字而卡住。
-
-### 遠端 client 直連 SGLang（需帶 SGLANG_API_KEY）
-
-```powershell
-curl http://<HOST_IP>:8082/v1/chat/completions `
-  -H "Authorization: Bearer <SGLANG_API_KEY>" `
-  -H "Content-Type: application/json" `
-  -d '{\"model\":\"google/translategemma-4b-it\",\"messages\":[{\"role\":\"user\",\"content\":\"你好\"}],\"stream\":false}'
-```
-
-### 3. 執行壓力測試
-
-```powershell
-# 使用專用的基準測試腳本
-..\.venv\Scripts\python.exe scripts\benchmark_final.py --concurrency 20 --total 50
-```
-
-## 🔊 WebSocket 即時 TTS 測試（逐字 / cancel / resume）
-
-此專案可搭配「WS Gateway（對外 WebSocket）」+「Riva TTS（內部 gRPC）」做即時語音串流。
-
-### WS Gateway（預設：Piper 真實語音）
-
-`docker compose up -d --build` 預設會啟用 `Piper`（真實語音）。第一次啟動會自動下載 Piper binary 與預設模型到 Docker named volume（屬正常現象，可能需要幾分鐘）。
-
-> 若你仍聽到「嘟」聲：通常代表 `WS_TTS_ENGINE` 還是 `dummy`，或 Piper 未成功下載/啟動（請看下方驗收與 logs）。
-
-健康檢查：
-
-```powershell
-curl http://localhost:9000/healthz
-```
-
-（驗收：確認已切到 piper）
-
-```powershell
-# engine_resolved 應該是 "piper"（不是 "dummy"）
-curl http://localhost:9000/healthz
-docker compose logs -f ws_gateway_tts
-```
-
-更換 Piper 模型（進階）：
-- 方式 A（最簡單）：清空 volume 後重啟（會重新下載預設模型）
-  - `docker volume rm sglang_piper-data`（或用 `docker volume ls` 找出實際名稱）
-- 方式 B：在 `.env` 改 `PIPER_MODEL` 與對應的 `PIPER_MODEL_ONNX_URL / PIPER_MODEL_ONNX_SHA256 / PIPER_MODEL_JSON_URL / PIPER_MODEL_JSON_SHA256`，重啟 `ws_gateway_tts`
-
-### WS Gateway（切回 Dummy：除錯用）
-
-若你只想驗證協定/鏈路（不需要真實語音），可切回 `DummyTtsEngine`：
-
-```powershell
-# .env
-WS_TTS_ENGINE=dummy
-
-docker compose up -d --build ws_gateway_tts
-```
-
-> 提醒：Piper 模型有固定取樣率；例如 `zh_CN-huayan-medium` 是 `22050Hz`（看同資料夾的 `.onnx.json`）。若前端送 `sample_rate=16000`，Gateway 會報錯且聽不到聲音。
-
-> 若你需要本機直接啟動（開發/除錯）：仍可用 `..\\.venv\\Scripts\\python.exe -m ws_gateway_tts.server`。
-
-### 基本壓測（50 連線、每秒 5 字、10 分鐘）
-
-```powershell
-..\.venv\Scripts\python.exe sglang-server\ws_tts_benchmark.py `
-  --url ws://localhost:9000/tts `
-  --concurrency 50 `
-  --cps 5 `
-  --duration 600 `
-  --scenario mixed `
-  --output-json logs/ws_tts_report.json
-```
-
-### 只跑 baseline（不注入 cancel / resume / 背壓）
-
-```powershell
-..\.venv\Scripts\python.exe sglang-server\ws_tts_benchmark.py --url ws://localhost:9000/tts --scenario baseline
-```
-
-## 📦 推薦模型 (RTX 4060 Ti 8GB)
-
-| 模型 | VRAM 用量 | 說明 |
-|-----|----------|------|
-| `google/translategemma-4b-it` | ~8GB | **預設**（可由 `.env` 的 `SGLANG_MODEL` 覆寫） |
-| `Qwen/Qwen2.5-3B-Instruct` | ~6GB | 中英文表現佳 |
-| `Qwen/Qwen2.5-1.5B-Instruct` | ~3GB | 輕量且速度極快 |
-
-## 🔧 核心優勢 (SGLang)
-
-1. **RadixAttention**: 自動快取 System Prompt 與 Tool 定義，顯著降低重複請求的延遲。
-2. **結構化輸出優化**: 針對 JSON Schema (Function Calling) 有極佳的生成速度。
-3. **高效併發**: 連續批次處理 (Continuous Batching) 充分利用 GPU 算力。
-
-## 📁 專案結構
+## 🏗️ 架構設計
 
 ```
-.
-├── docker-compose.yml      # Docker Compose 配置
-├── .env.example            # 環境變數範本
-├── sglang-server/benchmark_final.py      # 最終壓力測試與監控腳本
-├── sglang-server/benchmark_report.md     # 效能測試報告
-├── sglang-server/nginx/                  # Nginx 反向代理配置
-└── sglang-server/monitoring/             # Prometheus 監控配置
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│  Frontend   │────▶│ Orchestrator │────▶│   SGLang    │
+│  (React)    │     │  (aiohttp)   │     │   (LLM)     │
+└─────────────┘     └──────────────┘     └─────────────┘
+                           │
+                           ▼
+                    ┌──────────────┐
+                    │  RAG Service │
+                    │  (FastAPI)   │
+                    └──────────────┘
+                           │
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+        ┌─────────┐  ┌─────────┐  ┌─────────┐
+        │ ChromaDB│  │  BM25   │  │ Reranker│
+        │ (Dense) │  │(Sparse) │  │  (BGE)  │
+        └─────────┘  └─────────┘  └─────────┘
 ```
 
-## 📚 文件索引
+## 📝 開發指南
 
-- `docs/OPERATE.md`：維運、壓測、以及 SGLang 載入/故障排查（含 `google/translategemma-4b-it` 載入流程）
+### 前端開發
 
-## SAGA MVP Demo
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m examples.demo_run
-```
-
-輸出會產生在 `runs/<run_id>/`（trace.db / graph.json / workflow.mmd）。
-
-可用參數：
-```powershell
-.\.venv\Scripts\python.exe -m examples.demo_run --beam-width 4 --keywords 測試,品質
-.\.venv\Scripts\python.exe -m examples.demo_run --config path/to/config.json
-.\.venv\Scripts\python.exe -m examples.demo_run --use-sglang --sglang-api-key <SGLANG_API_KEY>
-.\.venv\Scripts\python.exe -m examples.demo_run --use-llm-modules --use-sglang --sglang-api-key <SGLANG_API_KEY>
-```powershell
-.\.venv\Scripts\python.exe -m examples.demo_run --use-llm-modules --use-sglang --sglang-api-key <SGLANG_API_KEY>
-```
-
-### Production CLI
-Use `saga_cli.py` for standard operations:
-```powershell
-uv run saga_cli.py run
-```
-
-## SAGA Server（WebSocket Observability）
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m uvicorn saga_server.app:app --host 0.0.0.0 --port 9200
-```
-
-WebSocket: `ws://localhost:9200/ws/run`
-
-## SAGA UI（Mermaid Render）
-
-### 開發模式
-```powershell
+```bash
 cd web_client
 npm install
 npm run dev
 ```
 
-UI 預設會在 `http://localhost:5173/`，並透過 proxy 連到 `ws://localhost:9200/ws/run`。
+### RAG 服務開發
 
-### Docker（web + saga_server）
-```powershell
-docker compose up -d --build saga_server web
+```bash
+cd rag_core
+pip install -e ".[dev]"
+uvicorn server:app --reload --port 8100
 ```
 
-UI 入口：`http://localhost:8080/`  
-WebSocket（同網域）：`ws://localhost:8080/ws/run`  
-Run artifacts（同網域）：`http://localhost:8080/runs/<run_id>/workflow.mmd`
+## 📄 授權
 
-## SAGA Architecture Constraints
-
-1. **Outer Loop Scoping**: 目前 MVP 僅實作 **單輪 (Single-turn)** Outer Loop 用於驗證架構，尚未包含多輪目標動態演化 (Multi-turn Objective Evolution)。
-2. **Optimizer Role**: Optimizer 僅負責 **執行 (Execution-only)** 既定的搜尋策略（如 Beam Search），**絕不** 修改目標權重或評分標準。
-3. **Replay Guarantee**: 系統的 Replay 機制僅保證 **行為重現 (Behavioral Replay)**（重現當初的決策路徑與結果），不保證底層 LLM 的隨機性或 bit-level 一致性。
-4. **Pluggable Inner Loop**: Inner Loop 的搜尋策略是模組化的，目前預設為 Beam Search，但設計上可替換為 Random Search 或 EvoSearch。
-
-## SAGA Implementation Status
-- [x] 在文件中明確聲明：MVP 僅單輪 outer loop，非完整多輪目標演化
-- [x] 在文件中明確聲明：Optimizer 為 execution-only，不改目標、不改 scoring
-- [x] 在文件中明確聲明：Replay 僅保證 behavioral replay
-- [x] 在文件中明確聲明：Inner loop 搜尋策略可替換（Beam/Random/EvoSearch）
-- [x] 將 Planner 權重實際接入 scoring（已在 `beam_search` 中實作加權排序）
-- [x] LLM JSON schema 偏離時的重試/校驗機制（已實作 `_call_and_parse` 自動重試）
-- [x] 強化 scoring sandbox（已明確定義 I/O 限制與隔離模型）
+MIT License

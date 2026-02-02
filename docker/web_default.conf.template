@@ -4,9 +4,9 @@ map $http_upgrade $connection_upgrade {
 }
 
 upstream sglang_backend { server sglang:30000; }
-upstream ws_gateway_tts_backend { server ws_gateway_tts:9000; }
 upstream orchestrator_backend { server ${ORCHESTRATOR_UPSTREAM}; }
 upstream saga_backend { server ${SAGA_UPSTREAM}; }
+upstream rag_backend { server rag:8100; }
 
 server {
   listen 80;
@@ -44,9 +44,9 @@ server {
     client_max_body_size 10m;
   }
 
-  # ws_gateway_tts (WebSocket)
-  location = /tts {
-    proxy_pass http://ws_gateway_tts_backend/tts;
+  # Orchestrator WebSocket Chat
+  location = /ws/chat {
+    proxy_pass http://orchestrator_backend/ws/chat;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $connection_upgrade;
@@ -55,13 +55,6 @@ server {
     proxy_send_timeout 3600s;
   }
 
-  location = /tts/healthz {
-    proxy_pass http://ws_gateway_tts_backend/healthz;
-    proxy_http_version 1.1;
-    proxy_set_header Connection "";
-  }
-
-  # Orchestrator (WebSocket)
   location = /chat {
     proxy_pass http://orchestrator_backend/chat;
     proxy_http_version 1.1;
@@ -76,6 +69,16 @@ server {
     proxy_pass http://orchestrator_backend/healthz;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
+  }
+
+  # RAG Service API
+  location /api/rag/ {
+    proxy_pass http://rag_backend/;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Connection "";
+    client_max_body_size 50m;
   }
 
   # SAGA Server (WebSocket)

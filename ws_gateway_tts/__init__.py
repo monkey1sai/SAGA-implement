@@ -1,2 +1,0 @@
-"""WebSocket TTS Gateway (MVP)."""
-

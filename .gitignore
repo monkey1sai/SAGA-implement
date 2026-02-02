@@ -80,3 +80,7 @@ web_client/dist/
 
 .gemini/
 gha-creds-*.json
+.agent/
+.antigravity
+.claude/
+.github/
