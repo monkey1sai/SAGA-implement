@@ -1,0 +1,897 @@
+[
+  {
+    "path": ".claude/skills/accessibility-auditor/SKILL.md",
+    "name": "accessibility-auditor",
+    "description": "Audits and implements web accessibility (a11y) following WCAG 2.1 guidelines with ARIA patterns, keyboard navigation, screen reader support, and contrast checking. Use when users request \"accessibility audit\", \"a11y review\", \"WCAG compliance\", \"screen reader support\", or \"keyboard navigation\"."
+  },
+  {
+    "path": ".claude/skills/adr-writer/SKILL.md",
+    "name": "adr-writer",
+    "description": "Creates Architecture Decision Records documenting key technical decisions with context, alternatives considered, tradeoffs, consequences, and decision owners. Use when documenting \"architecture decisions\", \"technical choices\", \"design decisions\", or \"ADRs\"."
+  },
+  {
+    "path": ".claude/skills/agent-orchestration-planner/SKILL.md",
+    "name": "agent-orchestration-planner",
+    "description": "Designs multi-step agent workflows with tool usage, retry logic, state management, and budget controls. Provides orchestration diagrams, tool execution order, fallback strategies, and cost limits. Use for \"AI agents\", \"agentic workflows\", \"multi-step AI\", or \"autonomous systems\"."
+  },
+  {
+    "path": ".claude/skills/ai-agent-orchestrator/SKILL.md",
+    "name": "ai-agent-orchestrator",
+    "description": "Orchestrates multi-agent AI systems with task delegation, agent communication, shared memory, and workflow coordination. Use when users request \"multi-agent system\", \"agent orchestration\", \"AI agents\", \"agent coordination\", or \"autonomous agents\"."
+  },
+  {
+    "path": ".claude/skills/alerting-dashboard-builder/SKILL.md",
+    "name": "alerting-dashboard-builder",
+    "description": "Creates SLO-based alerts and operational dashboards with key charts, alert thresholds, and runbook links. Use for \"alerting\", \"dashboards\", \"SLO\", or \"monitoring\"."
+  },
+  {
+    "path": ".claude/skills/animation-micro-interaction-pack/SKILL.md",
+    "name": "animation-micro-interaction-pack",
+    "description": "Provides reusable interaction patterns and motion presets that make UI feel polished. Includes hover effects, transitions, entrance animations, gesture feedback, and reduced-motion support. Use when adding \"animations\", \"transitions\", \"micro-interactions\", or \"motion design\"."
+  },
+  {
+    "path": ".claude/skills/api-contract-normalizer/SKILL.md",
+    "name": "api-endpoint-generator",
+    "description": "Generates CRUD REST API endpoints with request validation, TypeScript types, consistent response formats, error handling, and documentation. Includes route handlers, validation schemas (Zod/Joi), typed responses, and usage examples. Use when building \"REST API\", \"CRUD endpoints\", \"API routes\", or \"backend endpoints\"."
+  },
+  {
+    "path": ".claude/skills/api-docs-generator/SKILL.md",
+    "name": "api-docs-generator",
+    "description": "Generates comprehensive API documentation in Markdown, HTML, or Docusaurus format from Express, Next.js, Fastify, or other API routes. Creates endpoint references, request/response examples, authentication guides, and error documentation. Use when users request \"generate api docs\", \"api documentation\", \"endpoint documentation\", or \"api reference\"."
+  },
+  {
+    "path": ".claude/skills/api-endpoint-generator/SKILL.md",
+    "name": "api-contract-normalizer",
+    "description": "Unifies API response patterns across endpoints including pagination format, error structure, status codes, response envelopes, and versioning strategy. Provides contract documentation, shared TypeScript types, middleware utilities, and migration plan. Use when standardizing \"API contracts\", \"response formats\", \"API conventions\", or \"API consistency\"."
+  },
+  {
+    "path": ".claude/skills/api-mock-server/SKILL.md",
+    "name": "api-mock-server",
+    "description": "Creates mock API servers for testing and development with MSW, json-server, or custom handlers. Use when users request \"API mocking\", \"mock server\", \"MSW setup\", \"test fixtures\", or \"mock API responses\"."
+  },
+  {
+    "path": ".claude/skills/api-security-hardener/SKILL.md",
+    "name": "api-security-hardener",
+    "description": "Hardens API security with rate limiting, input validation, authentication, and protection against common attacks. Use when users request \"API security\", \"secure API\", \"rate limiting\", \"input validation\", or \"API protection\"."
+  },
+  {
+    "path": ".claude/skills/api-test-suite-generator/SKILL.md",
+    "name": "api-test-suite-generator",
+    "description": "Generates comprehensive API test suites using Jest, Vitest, or Supertest from Express, Next.js, Fastify, or other API routes. Creates integration tests, contract tests, and edge case coverage. Use when users request \"generate api tests\", \"create endpoint tests\", \"api test suite\", or \"integration tests for api\"."
+  },
+  {
+    "path": ".claude/skills/api-versioning-deprecation-planner/SKILL.md",
+    "name": "api-versioning-deprecation-planner",
+    "description": "Plans safe API evolution with versioning strategies, client migration guides, deprecation timelines, and backward compatibility considerations. Use for \"API versioning\", \"deprecation planning\", \"API evolution\", or \"breaking changes\"."
+  },
+  {
+    "path": ".claude/skills/artifact-sbom-publisher/SKILL.md",
+    "name": "artifact-sbom-publisher",
+    "description": "Produces build artifacts with Software Bill of Materials (SBOM) and supply chain metadata for security and compliance. Use for \"artifact publishing\", \"SBOM generation\", \"supply chain security\", or \"build provenance\"."
+  },
+  {
+    "path": ".claude/skills/auth-module-builder/SKILL.md",
+    "name": "auth-module-builder",
+    "description": "Implements secure authentication patterns including login/registration, session management, JWT tokens, password hashing, cookie settings, and CSRF protection. Provides auth routes, middleware, security configurations, and threat model documentation. Use when building \"authentication\", \"login system\", \"JWT auth\", or \"session management\"."
+  },
+  {
+    "path": ".claude/skills/auth-security-reviewer/SKILL.md",
+    "name": "auth-security-reviewer",
+    "description": "Reviews authentication and authorization implementation for session management, CSRF, cookie security, and auth flow vulnerabilities with findings, severity assessment, and fix recommendations. Use for \"auth review\", \"session security\", \"CSRF protection\", or \"authentication audit\"."
+  },
+  {
+    "path": ".claude/skills/backend-latency-profiler-helper/SKILL.md",
+    "name": "backend-latency-profiler-helper",
+    "description": "Identifies API latency hotspots and bottlenecks with profiling tools, slow endpoint detection, suspected causes, and fix roadmap. Use for \"latency profiling\", \"performance bottlenecks\", \"slow APIs\", or \"backend performance\"."
+  },
+  {
+    "path": ".claude/skills/background-jobs-designer/SKILL.md",
+    "name": "background-jobs-designer",
+    "description": "Designs background job processing systems with queue integration (BullMQ/Celery), job definitions, retry policies, exponential backoff, idempotent execution, and monitoring hooks. Use when implementing \"background jobs\", \"task queues\", \"async processing\", or \"job workers\"."
+  },
+  {
+    "path": ".claude/skills/backup-restore-runbook-generator/SKILL.md",
+    "name": "backup-restore-runbook-generator",
+    "description": "Creates comprehensive disaster recovery procedures with automated backup scripts, restore procedures, validation checks, and role assignments. Use for \"database backup\", \"disaster recovery\", \"data restore\", or \"DR planning\"."
+  },
+  {
+    "path": ".claude/skills/bruno-collection-generator/SKILL.md",
+    "name": "bruno-collection-generator",
+    "description": "Generates Bruno collection files (.bru) from Express, Next.js, Fastify, or other API routes. Creates organized collections with environments, authentication, and folder structure for the open-source Bruno API client. Use when users request \"generate bruno collection\", \"bruno api testing\", \"create bru files\", or \"bruno import\"."
+  },
+  {
+    "path": ".claude/skills/caching-cdn-strategy-planner/SKILL.md",
+    "name": "caching-cdn-strategy-planner",
+    "description": "Designs multi-layer caching strategy with edge CDN, server-side caching, cache invalidation, and CDN configuration. Use for \"caching strategy\", \"CDN setup\", \"cache invalidation\", or \"performance optimization\"."
+  },
+  {
+    "path": ".claude/skills/caching-strategist/SKILL.md",
+    "name": "caching-strategist",
+    "description": "Defines caching strategies with cache keys, TTL values, invalidation triggers, consistency patterns, and correctness checklist. Provides code examples for Redis, CDN, and application-level caching. Use when implementing \"caching\", \"performance optimization\", \"cache strategy\", or \"Redis caching\"."
+  },
+  {
+    "path": ".claude/skills/caching-strategy-optimizer/SKILL.md",
+    "name": "caching-strategy-optimizer",
+    "description": "Optimizes CI/CD pipeline speed by implementing effective caching for dependencies, Docker layers, build outputs, and test results. Provides before/after performance metrics and best practices. Use for \"CI caching\", \"pipeline optimization\", \"build speed\", or \"cache strategy\"."
+  },
+  {
+    "path": ".claude/skills/capacity-planning-helper/SKILL.md",
+    "name": "capacity-planning-helper",
+    "description": "Estimates infrastructure needs based on traffic forecasts, workload analysis, and performance requirements with sizing recommendations and cost trade-offs. Use for \"capacity planning\", \"infrastructure sizing\", \"resource estimation\", or \"scalability planning\"."
+  },
+  {
+    "path": ".claude/skills/changelog-writer/SKILL.md",
+    "name": "changelog-writer",
+    "description": "Generates changelogs and release notes from git commits, PR titles, and issue references. Organizes changes by impact type (breaking, features, fixes, improvements), formats according to Keep a Changelog standard, and provides version tagging and semantic versioning suggestions. Use when users request \"create changelog\", \"write release notes\", \"document version changes\", or \"prepare release\"."
+  },
+  {
+    "path": ".claude/skills/code-formatter-installer/SKILL.md",
+    "name": "code-formatter-installer",
+    "description": "Installs and configures Prettier, ESLint, EditorConfig, and other code quality tools to enforce consistent code style across the team. Generates config files, npm scripts, editor settings recommendations, and CI integration suggestions. Use when users request \"setup prettier\", \"add eslint\", \"configure code formatting\", or \"enforce code style\"."
+  },
+  {
+    "path": ".claude/skills/codebase-summarizer/SKILL.md",
+    "name": "codebase-summarizer",
+    "description": "Scans repository structure and generates comprehensive architecture documentation including system overview, entry points, module relationships, data flow diagrams, and \"edit here for X\" guides. Creates ARCHITECTURE.md for onboarding and navigation. Use when users request \"document the codebase\", \"explain the architecture\", \"create onboarding docs\", or \"map the system\"."
+  },
+  {
+    "path": ".claude/skills/component-scaffold-generator/SKILL.md",
+    "name": "component-scaffold-generator",
+    "description": "Generates clean React/Vue component skeletons with TypeScript types, prop variants, styling hooks, test files, Storybook stories, and usage documentation. Use when users request \"create a component\", \"scaffold component\", \"new React component\", or \"generate component boilerplate\"."
+  },
+  {
+    "path": ".claude/skills/contract-testing-builder/SKILL.md",
+    "name": "contract-testing-builder",
+    "description": "Implements API contract testing to ensure provider-consumer compatibility using Pact or similar tools. Prevents breaking changes with contract specifications and bi-directional verification. Use for \"contract testing\", \"API contracts\", \"Pact\", or \"consumer-driven contracts\"."
+  },
+  {
+    "path": ".claude/skills/conventional-commits/SKILL.md",
+    "name": "conventional-commits",
+    "description": "Generates semantic commit messages following the Conventional Commits specification with proper types, scopes, breaking changes, and footers. Use when users request \"write commit message\", \"conventional commit\", \"semantic commit\", or \"format commit\"."
+  },
+  {
+    "path": ".claude/skills/core-web-vitals-tuner/SKILL.md",
+    "name": "core-web-vitals-tuner",
+    "description": "Systematically improves Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS) with prioritized fixes and verification. Use for \"Core Web Vitals\", \"performance\", \"LCP\", \"INP\", or \"CLS\"."
+  },
+  {
+    "path": ".claude/skills/cors-configuration/SKILL.md",
+    "name": "cors-configuration",
+    "description": "Configures Cross-Origin Resource Sharing with proper headers, preflight handling, and security best practices. Use when users request \"CORS setup\", \"cross-origin requests\", \"API CORS\", \"preflight requests\", or \"CORS headers\"."
+  },
+  {
+    "path": ".claude/skills/cost-latency-optimizer/SKILL.md",
+    "name": "cost-latency-optimizer",
+    "description": "Reduces LLM costs and improves response times through caching, model selection, batching, and prompt optimization. Provides cost breakdowns, latency hotspots, and configuration recommendations. Use for \"cost reduction\", \"performance optimization\", \"latency improvement\", or \"efficiency\"."
+  },
+  {
+    "path": ".claude/skills/coverage-strategist/SKILL.md",
+    "name": "coverage-strategist",
+    "description": "Defines ROI-based coverage targets with critical path identification, layer-specific targets, and explicit \"don't test this\" guidelines. Use for \"test coverage\", \"coverage strategy\", \"test priorities\", or \"coverage targets\"."
+  },
+  {
+    "path": ".claude/skills/curl-command-generator/SKILL.md",
+    "name": "curl-command-generator",
+    "description": "Generates ready-to-run cURL commands from Express, Next.js, Fastify, or other API routes. Creates copy-paste commands with proper headers, authentication, and request bodies. Use when users request \"generate curl commands\", \"curl examples\", \"api curl\", or \"command line api testing\"."
+  },
+  {
+    "path": ".claude/skills/cypress-playwright-setup/SKILL.md",
+    "name": "cypress-playwright-setup",
+    "description": "Sets up end-to-end testing with Cypress or Playwright including page objects, fixtures, and CI integration. Use when users request \"E2E testing\", \"Cypress setup\", \"Playwright setup\", \"browser testing\", or \"integration tests\"."
+  },
+  {
+    "path": ".claude/skills/dark-mode-implementer/SKILL.md",
+    "name": "dark-mode-implementer",
+    "description": "Implements complete dark/light mode theming systems using CSS variables, Tailwind dark mode, React context, and system preference detection. Use when users request \"add dark mode\", \"theme toggle\", \"dark theme\", \"light mode switch\", or \"color scheme\"."
+  },
+  {
+    "path": ".claude/skills/data-integrity-auditor/SKILL.md",
+    "name": "data-integrity-auditor",
+    "description": "Detects data integrity issues including orphaned records, broken foreign key relationships, constraint violations, and provides automated fix migrations. Use for \"data integrity\", \"orphaned records\", \"broken relationships\", or \"data quality\"."
+  },
+  {
+    "path": ".claude/skills/data-retention-archiving-planner/SKILL.md",
+    "name": "data-retention-archiving-planner",
+    "description": "Plans and implements data retention policies with archival strategies, compliance requirements, automated cleanup jobs, and cold storage migration. Use for \"data retention\", \"data archival\", \"GDPR compliance\", or \"storage optimization\"."
+  },
+  {
+    "path": ".claude/skills/data-seeding-fixtures-builder/SKILL.md",
+    "name": "data-seeding-fixtures-builder",
+    "description": "Generates deterministic seed data for development and testing with factory functions, realistic fixtures, and database reset scripts. Use for \"data seeding\", \"test fixtures\", \"database seeding\", or \"mock data generation\"."
+  },
+  {
+    "path": ".claude/skills/db-performance-watchlist/SKILL.md",
+    "name": "db-performance-watchlist",
+    "description": "Defines database performance monitoring strategy with slow query detection, resource usage alerts, query execution thresholds, and automated alerting. Use for \"database monitoring\", \"performance alerts\", \"slow queries\", or \"DB metrics\"."
+  },
+  {
+    "path": ".claude/skills/dependency-doctor/SKILL.md",
+    "name": "dependency-doctor",
+    "description": "Audits project dependencies for outdated packages, duplicates, heavy/problematic libraries, security vulnerabilities, and risky version combinations. Generates prioritized reports with security, performance, and maintainability insights, upgrade paths, and safe pinning recommendations. Use when users request dependency audits, package updates, security checks, or dependency optimization."
+  },
+  {
+    "path": ".claude/skills/dependency-vulnerability-triage/SKILL.md",
+    "name": "dependency-vulnerability-triage",
+    "description": "Turns npm audit/Snyk results into prioritized patch plans with severity assessment, safe upgrade paths, breaking change analysis, and rollback strategies. Use for \"dependency security\", \"vulnerability patching\", \"npm audit\", or \"security updates\"."
+  },
+  {
+    "path": ".claude/skills/deployment-checklist-generator/SKILL.md",
+    "name": "deployment-checklist-generator",
+    "description": "Creates comprehensive deployment checklists with pre-deployment checks, smoke tests, verification steps, and sign-off workflows. Use for \"deployment checklist\", \"release verification\", \"deployment runbook\", or \"production readiness\"."
+  },
+  {
+    "path": ".claude/skills/design-to-component-translator/SKILL.md",
+    "name": "design-to-component-translator",
+    "description": "Converts Figma/design specifications into production-ready UI components with accurate spacing, typography, color tokens, responsive rules, and interaction states (hover, focus, disabled, active). Generates Tailwind/shadcn code with design system tokens mapping. Use when translating \"Figma to code\", \"design specs to components\", or \"implement design system\"."
+  },
+  {
+    "path": ".claude/skills/dev-environment-bootstrapper/SKILL.md",
+    "name": "dev-environment-bootstrapper",
+    "description": "Standardizes development environment setup across machines by generating tool version configs (Node, Python, Ruby), package manager configs (pnpm, Volta, asdf, mise), environment variable templates, and setup scripts with onboarding documentation. Use when users need to \"setup dev environment\", \"standardize tooling\", \"configure version managers\", or \"create onboarding scripts\"."
+  },
+  {
+    "path": ".claude/skills/dev-onboarding-builder/SKILL.md",
+    "name": "dev-onboarding-builder",
+    "description": "Creates comprehensive developer onboarding documentation and materials including step-by-step setup guides, first-task assignments, expected time per step, common troubleshooting, team introductions, and code walkthrough tours. Use when preparing \"new developer onboarding\", \"first day setup\", \"junior dev training\", or \"team member onboarding\"."
+  },
+  {
+    "path": ".claude/skills/doc-to-vector-dataset-generator/SKILL.md",
+    "name": "doc-to-vector-dataset-generator",
+    "description": "Converts documents into clean, chunked datasets suitable for embeddings and vector search. Produces chunked JSONL files with metadata, deduplication logic, and quality checks. Use when preparing \"training data\", \"vector datasets\", \"document processing\", or \"embedding data\"."
+  },
+  {
+    "path": ".claude/skills/dockerfile-optimizer/SKILL.md",
+    "name": "dockerfile-optimizer",
+    "description": "Optimizes Dockerfiles for smaller images, faster builds, better caching, and security hardening using multi-stage builds and best practices. Use when users request \"optimize Dockerfile\", \"reduce Docker image size\", \"Docker best practices\", or \"containerize application\"."
+  },
+  {
+    "path": ".claude/skills/docs-starter-kit/SKILL.md",
+    "name": "docs-starter-kit",
+    "description": "Generates comprehensive documentation templates for open-source and internal projects including README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, LICENSE, and other standard docs with suggested sections and best practices. Use when users request \"create project docs\", \"add OSS documentation\", \"setup standard docs\", or \"make it open-source ready\"."
+  },
+  {
+    "path": ".claude/skills/domain-model-boundaries-mapper/SKILL.md",
+    "name": "domain-model-boundaries-mapper",
+    "description": "Identifies domain modules, ownership boundaries, dependencies, and interfaces using Domain-Driven Design principles. Provides domain maps, bounded contexts, refactor recommendations. Use for \"DDD\", \"domain modeling\", \"bounded contexts\", or \"service boundaries\"."
+  },
+  {
+    "path": ".claude/skills/e2e-test-builder/SKILL.md",
+    "name": "e2e-test-builder",
+    "description": "Builds end-to-end browser tests for critical user flows using Playwright or Cypress. Includes selector strategies, test data management, page objects, and visual regression testing. Use for \"E2E testing\", \"browser tests\", \"Playwright\", or \"Cypress tests\"."
+  },
+  {
+    "path": ".claude/skills/embedding-pipeline-builder/SKILL.md",
+    "name": "embedding-pipeline-builder",
+    "description": "Builds document embedding pipelines with text chunking, embedding generation, indexing, and retrieval optimization. Use when users request \"embedding pipeline\", \"document indexing\", \"text chunking\", \"RAG preprocessing\", or \"semantic indexing\"."
+  },
+  {
+    "path": ".claude/skills/env-secrets-manager/SKILL.md",
+    "name": "env-secrets-manager",
+    "description": "Manages environment variables and secrets securely with encryption, rotation, and provider integration. Use when users request \"secrets management\", \"environment variables\", \"API keys\", \"credentials storage\", or \"secret rotation\"."
+  },
+  {
+    "path": ".claude/skills/error-handling-standardizer/SKILL.md",
+    "name": "error-handling-standardizer",
+    "description": "Creates consistent error handling with custom error classes, HTTP status mapping, structured logging, safe client messages, and error taxonomy. Use when standardizing \"error handling\", \"logging\", \"error responses\", or \"exception management\"."
+  },
+  {
+    "path": ".claude/skills/eslint-prettier-config/SKILL.md",
+    "name": "eslint-prettier-config",
+    "description": "Configures ESLint and Prettier for consistent code quality with TypeScript, React, and modern best practices. Use when users request \"ESLint setup\", \"Prettier config\", \"linting configuration\", \"code formatting\", or \"lint rules\"."
+  },
+  {
+    "path": ".claude/skills/etl-sync-job-builder/SKILL.md",
+    "name": "etl-sync-job-builder",
+    "description": "Designs reliable ETL and data synchronization jobs with incremental updates, idempotency guarantees, watermark tracking, error handling, and retry logic. Use for \"ETL jobs\", \"data sync\", \"incremental sync\", or \"data pipeline\"."
+  },
+  {
+    "path": ".claude/skills/evaluation-harness/SKILL.md",
+    "name": "evaluation-harness",
+    "description": "Builds repeatable evaluation systems with golden datasets, scoring rubrics, pass/fail thresholds, and regression reports. Use for \"LLM evaluation\", \"testing AI systems\", \"quality assurance\", or \"model benchmarking\"."
+  },
+  {
+    "path": ".claude/skills/event-driven-architect/SKILL.md",
+    "name": "event-driven-architect",
+    "description": "Designs event-driven architectures with event sourcing, CQRS, pub/sub patterns, and domain events for decoupled systems. Use when users request \"event sourcing\", \"CQRS\", \"domain events\", \"pub/sub\", or \"event-driven\"."
+  },
+  {
+    "path": ".claude/skills/explaining-code/SKILL.md",
+    "name": "explaining-code",
+    "description": "Explains code with visual diagrams and analogies. Use when explaining how code works, teaching about a codebase, or when the user asks \"how does this work?"
+  },
+  {
+    "path": ".claude/skills/flaky-test-detective/SKILL.md",
+    "name": "flaky-test-detective",
+    "description": "Diagnoses and fixes flaky tests by identifying root causes (timing issues, shared state, randomness, network dependencies) and provides stabilization strategies. Use for \"flaky tests\", \"test stability\", \"intermittent failures\", or \"test debugging\"."
+  },
+  {
+    "path": ".claude/skills/form-wizard-builder/SKILL.md",
+    "name": "form-wizard-builder",
+    "description": "Builds multi-step forms with validation schemas (Zod/Yup), step components, shared state management, progress indicators, review steps, and error handling. Use when creating \"multi-step forms\", \"wizard flows\", \"onboarding forms\", or \"checkout processes\"."
+  },
+  {
+    "path": ".claude/skills/framer-motion-animator/SKILL.md",
+    "name": "framer-motion-animator",
+    "description": "Creates smooth animations and micro-interactions using Framer Motion including page transitions, gestures, scroll-based animations, and orchestrated sequences. Use when users request \"add animation\", \"framer motion\", \"page transition\", \"animate component\", or \"micro-interactions\"."
+  },
+  {
+    "path": ".claude/skills/frontend-refactor-planner/SKILL.md",
+    "name": "frontend-refactor-planner",
+    "description": "Creates safe refactor plans for messy UI code including component splitting strategies, state simplification, performance optimizations, and accessibility improvements. Provides phased approach, risk assessment, and \"done\" criteria. Use when refactoring \"legacy code\", \"messy components\", \"performance issues\", or \"large files\"."
+  },
+  {
+    "path": ".claude/skills/git-hygiene-enforcer/SKILL.md",
+    "name": "git-hygiene-enforcer",
+    "description": "Establishes git workflow guardrails including conventional commits, commit message hooks, branch naming conventions, PR templates, and code review processes. Provides hook configurations, workflow templates, and emergency bypass instructions. Use when users request \"setup git hooks\", \"enforce commit conventions\", \"add PR templates\", or \"standardize git workflow\"."
+  },
+  {
+    "path": ".claude/skills/github-actions-pipeline-creator/SKILL.md",
+    "name": "github-actions-pipeline-creator",
+    "description": "Creates comprehensive GitHub Actions CI/CD workflows for linting, testing, building, and deploying. Includes caching strategies, matrix builds, artifact handling, and failure diagnostics. Use for \"GitHub Actions\", \"CI pipeline\", \"workflow automation\", or \"continuous integration\"."
+  },
+  {
+    "path": ".claude/skills/graphql-schema-designer/SKILL.md",
+    "name": "graphql-schema-designer",
+    "description": "Designs GraphQL schemas with types, queries, mutations, subscriptions, resolvers, and DataLoader patterns for efficient data fetching. Use when users request \"GraphQL API\", \"schema design\", \"GraphQL setup\", \"resolvers\", or \"Apollo Server\"."
+  },
+  {
+    "path": ".claude/skills/guardrails-safety-filter-builder/SKILL.md",
+    "name": "guardrails-safety-filter-builder",
+    "description": "Implements content safety filters with PII redaction, policy constraints, prompt injection detection, and safe refusal templates. Use when adding \"content moderation\", \"safety filters\", \"PII protection\", or \"guardrails\"."
+  },
+  {
+    "path": ".claude/skills/hot-reload-optimizer/SKILL.md",
+    "name": "hot-reload-optimizer",
+    "description": "Optimizes hot module replacement and fast refresh for development speed with Vite, Next.js, and webpack configurations. Use when users request \"hot reload\", \"HMR optimization\", \"fast refresh\", \"dev server speed\", or \"development performance\"."
+  },
+  {
+    "path": ".claude/skills/i18n-frontend-implementer/SKILL.md",
+    "name": "i18n-frontend-implementer",
+    "description": "Adds internationalization (i18n) infrastructure with translation plumbing, scalable key strategy, formatters for dates/numbers/currency, plural rules, and language switching. Use when implementing \"internationalization\", \"translations\", \"multi-language support\", or \"i18n\"."
+  },
+  {
+    "path": ".claude/skills/incident-runbook-generator/SKILL.md",
+    "name": "incident-runbook-generator",
+    "description": "Creates step-by-step incident response runbooks for common outages with actions, owners, rollback procedures, and communication templates. Use for \"incident runbook\", \"outage response\", \"incident management\", or \"on-call procedures\"."
+  },
+  {
+    "path": ".claude/skills/input-validation-sanitization-auditor/SKILL.md",
+    "name": "input-validation-sanitization-auditor",
+    "description": "Identifies and fixes XSS, SQL injection, and command injection vulnerabilities with validation schemas, sanitization libraries, and safe coding patterns. Use for \"input validation\", \"XSS prevention\", \"SQL injection\", or \"sanitization\"."
+  },
+  {
+    "path": ".claude/skills/insomnia-collection-generator/SKILL.md",
+    "name": "insomnia-collection-generator",
+    "description": "Generates Insomnia collection export files from Express, Next.js, Fastify, or other API routes. Creates organized workspaces with request groups, environments, and authentication. Use when users request \"generate insomnia collection\", \"export to insomnia\", \"create insomnia workspace\", or \"insomnia import\"."
+  },
+  {
+    "path": ".claude/skills/integration-test-builder/SKILL.md",
+    "name": "integration-test-builder",
+    "description": "Creates integration tests for API endpoints with database flows, including test harness setup, fixtures, setup/teardown, database seeding, and CI-friendly strategies. Use for \"integration testing\", \"API tests\", \"database tests\", or \"test harness\"."
+  },
+  {
+    "path": ".claude/skills/jsdoc-typescript-docs/SKILL.md",
+    "name": "jsdoc-typescript-docs",
+    "description": "Documents TypeScript code with JSDoc comments, generates API documentation, and creates type-safe documentation. Use when users request \"JSDoc\", \"code documentation\", \"API docs\", \"TypeDoc\", or \"inline documentation\"."
+  },
+  {
+    "path": ".claude/skills/kubernetes-manifest-generator/SKILL.md",
+    "name": "kubernetes-manifest-generator",
+    "description": "Generates Kubernetes manifests including Deployments, Services, ConfigMaps, Secrets, Ingress, and HPA with best practices. Use when users request \"Kubernetes setup\", \"K8s manifests\", \"deploy to Kubernetes\", \"container orchestration\", or \"K8s configuration\"."
+  },
+  {
+    "path": ".claude/skills/langchain-workflow-builder/SKILL.md",
+    "name": "langchain-workflow-builder",
+    "description": "Builds LLM applications with LangChain including chains, agents, memory, tools, and RAG pipelines. Use when users request \"LangChain setup\", \"LLM chain\", \"AI workflow\", \"conversational AI\", or \"RAG pipeline\"."
+  },
+  {
+    "path": ".claude/skills/llm-debugger/SKILL.md",
+    "name": "llm-debugger",
+    "description": "Diagnoses LLM output failures including hallucinations, constraint violations, format errors, and reasoning issues. Provides root cause classification, prompt fixes, tool improvements, and new test cases. Use for \"debugging AI\", \"fixing prompts\", \"quality issues\", or \"output errors\"."
+  },
+  {
+    "path": ".claude/skills/load-test-builder/SKILL.md",
+    "name": "load-test-builder",
+    "description": "Creates load and performance tests with k6, Artillery, or autocannon to validate system behavior under stress. Use when users request \"load testing\", \"performance testing\", \"stress testing\", \"k6 setup\", or \"benchmark API\"."
+  },
+  {
+    "path": ".claude/skills/load-test-scenario-builder/SKILL.md",
+    "name": "load-test-scenario-builder",
+    "description": "Creates comprehensive load test plans with realistic scenarios, traffic models, k6 scripts, and success criteria. Use for \"load testing\", \"performance testing\", \"capacity validation\", or \"stress testing\"."
+  },
+  {
+    "path": ".claude/skills/mcp-server-builder/SKILL.md",
+    "name": "mcp-server-builder",
+    "description": "Builds Model Context Protocol (MCP) servers for Claude with tools, resources, and prompts. Use when users request \"create MCP server\", \"build Claude tool\", \"MCP integration\", or \"custom Claude tools\"."
+  },
+  {
+    "path": ".claude/skills/mermaid-diagram-generator/SKILL.md",
+    "name": "mermaid-diagram-generator",
+    "description": "Creates Mermaid diagrams for flowcharts, sequence diagrams, ERDs, and architecture visualizations in markdown. Use when users request \"Mermaid diagram\", \"flowchart\", \"sequence diagram\", \"ERD diagram\", or \"architecture diagram\"."
+  },
+  {
+    "path": ".claude/skills/migration-planner/SKILL.md",
+    "name": "migration-planner",
+    "description": "Builds phased data and system migrations using feature flags, dual writes, backfills, and validation. Includes rollback plans and risk mitigation. Use for \"data migration\", \"system migration\", \"database migration\", or \"platform migration\"."
+  },
+  {
+    "path": ".claude/skills/mocking-assistant/SKILL.md",
+    "name": "mocking-assistant",
+    "description": "Creates stable mocks for APIs, services, and UI components using MSW (Mock Service Worker), fixture conventions, and example patterns. Use for \"API mocking\", \"MSW\", \"test mocks\", or \"service mocking\"."
+  },
+  {
+    "path": ".claude/skills/modal-drawer-system/SKILL.md",
+    "name": "modal-drawer-system",
+    "description": "Implements accessible modals and drawers with focus trap, ESC to close, scroll lock, portal rendering, and ARIA attributes. Includes sample implementations for common use cases like edit forms, confirmations, and detail views. Use when building \"modals\", \"dialogs\", \"drawers\", \"sidebars\", or \"overlays\"."
+  },
+  {
+    "path": ".claude/skills/monorepo-ci-optimizer/SKILL.md",
+    "name": "monorepo-ci-optimizer",
+    "description": "Optimizes CI pipelines for monorepos by detecting affected packages/apps and running only necessary builds and tests. Includes Turborepo/Nx strategies, caching, and parallel execution. Use for \"monorepo CI\", \"affected detection\", \"incremental builds\", or \"workspace optimization\"."
+  },
+  {
+    "path": ".claude/skills/monorepo-setup/SKILL.md",
+    "name": "monorepo-setup",
+    "description": "Sets up monorepo architecture with Turborepo, pnpm workspaces, shared packages, and optimized build pipelines. Use when users request \"monorepo setup\", \"Turborepo\", \"pnpm workspaces\", \"shared packages\", or \"multi-package repository\"."
+  },
+  {
+    "path": ".claude/skills/multi-tenant-safety-checker/SKILL.md",
+    "name": "multi-tenant-safety-checker",
+    "description": "Ensures tenant isolation at query and policy level using Row Level Security, automated testing, and security audits. Prevents data leakage between tenants. Use for \"multi-tenancy\", \"tenant isolation\", \"RLS\", or \"data security\"."
+  },
+  {
+    "path": ".claude/skills/nginx-config-optimizer/SKILL.md",
+    "name": "nginx-config-optimizer",
+    "description": "Optimizes Nginx configurations for performance, security, caching, and load balancing with modern best practices. Use when users request \"Nginx setup\", \"reverse proxy\", \"load balancer\", \"web server config\", or \"Nginx optimization\"."
+  },
+  {
+    "path": ".claude/skills/oauth2-oidc-implementer/SKILL.md",
+    "name": "oauth2-oidc-implementer",
+    "description": "Implements OAuth 2.0 and OpenID Connect authentication flows with secure token handling and provider integration. Use when users request \"OAuth setup\", \"OIDC implementation\", \"social login\", \"SSO integration\", or \"authentication flow\"."
+  },
+  {
+    "path": ".claude/skills/observability-setup/SKILL.md",
+    "name": "observability-setup",
+    "description": "Implements comprehensive observability with OpenTelemetry tracing, Prometheus metrics, and structured logging. Includes instrumentation plans, sample dashboards, and alert candidates. Use for \"observability\", \"monitoring\", \"tracing\", or \"metrics\"."
+  },
+  {
+    "path": ".claude/skills/openapi-generator/SKILL.md",
+    "name": "openapi-generator",
+    "description": "Generates OpenAPI 3.0/3.1 specifications from Express, Next.js, Fastify, Hono, or NestJS routes. Creates complete specs with schemas, examples, and documentation that can be imported into Postman, Insomnia, or used with Swagger UI. Use when users request \"generate openapi\", \"create swagger spec\", \"openapi documentation\", or \"api specification\"."
+  },
+  {
+    "path": ".claude/skills/page-layout-builder/SKILL.md",
+    "name": "page-layout-builder",
+    "description": "Generates complete page layouts and shells for common patterns (dashboard, authentication, settings, CRUD pages) with consistent navigation, layout components, routing structure, and state management placeholders. Use when building \"new page\", \"dashboard layout\", \"auth pages\", or \"admin panel structure\"."
+  },
+  {
+    "path": ".claude/skills/performance-budget-setter/SKILL.md",
+    "name": "performance-budget-setter",
+    "description": "Defines measurable performance budgets for bundle size, API latency, database queries, and render times. Provides enforcement strategies and monitoring plans. Use for \"performance budgets\", \"performance monitoring\", \"web vitals\", or \"optimization targets\"."
+  },
+  {
+    "path": ".claude/skills/pii-redaction-logging-policy-builder/SKILL.md",
+    "name": "pii-redaction-logging-policy-builder",
+    "description": "Prevents logging sensitive user data with redaction rules, logging policies, and safe log formatting. Use for \"PII redaction\", \"log privacy\", \"GDPR logging\", or \"data privacy\"."
+  },
+  {
+    "path": ".claude/skills/postman-collection-generator/SKILL.md",
+    "name": "postman-collection-generator",
+    "description": "Generates Postman collection JSON files from Express, Next.js, Fastify, Hono, or other API routes. Scans route definitions, extracts endpoints, methods, params, and creates importable collections. Use when users request \"generate postman collection\", \"export to postman\", \"create postman file\", or \"postman import\"."
+  },
+  {
+    "path": ".claude/skills/postmortem-writer/SKILL.md",
+    "name": "postmortem-writer",
+    "description": "Creates comprehensive post-incident documents with timeline, root cause analysis, contributing factors, action items, and ownership. Follows SRE best practices for blameless postmortems. Use for \"postmortem\", \"incident review\", \"RCA\", or \"post-incident\"."
+  },
+  {
+    "path": ".claude/skills/pr-template-builder/SKILL.md",
+    "name": "pr-template-builder",
+    "description": "Creates GitHub pull request templates, issue templates, and discussion templates with proper YAML configuration. Use when users request \"PR template\", \"issue template\", \"GitHub templates\", \"pull request template\", or \"contribution guidelines\"."
+  },
+  {
+    "path": ".claude/skills/preview-environments-builder/SKILL.md",
+    "name": "preview-environments-builder",
+    "description": "Creates ephemeral preview deployments for each pull request with automatic deployment, unique URLs, and cleanup on PR close. Use for \"preview deployments\", \"PR environments\", \"ephemeral environments\", or \"review apps\"."
+  },
+  {
+    "path": ".claude/skills/prisma-migration-assistant/SKILL.md",
+    "name": "prisma-migration-assistant",
+    "description": "Plans and executes safe Prisma schema migrations with data backfills, rollback strategies, and SQL preview. Handles complex schema changes including data transformations. Use for \"Prisma migrations\", \"schema changes\", \"database migrations\", or \"data backfills\"."
+  },
+  {
+    "path": ".claude/skills/project-scaffolder/SKILL.md",
+    "name": "project-scaffolder",
+    "description": "Generates complete starter repositories for various tech stacks (Next.js, Vite, Nest, FastAPI, etc.) with best-practice conventions, folder structure, baseline code, configs, scripts, and setup documentation. Use when users request to \"scaffold a project\", \"create a starter repo\", \"initialize a new project\", or specify a tech stack to begin with."
+  },
+  {
+    "path": ".claude/skills/prompt-regression-tester/SKILL.md",
+    "name": "prompt-regression-tester",
+    "description": "Compares old vs new prompts across test cases with diff summaries, stability metrics, breakage analysis, and fix suggestions. Use for \"prompt testing\", \"A/B testing prompts\", \"prompt versioning\", or \"quality regression\"."
+  },
+  {
+    "path": ".claude/skills/prompt-template-builder/SKILL.md",
+    "name": "prompt-template-builder",
+    "description": "Creates reusable prompt templates with strict output contracts, style rules, few-shot examples, and do/don't guidelines. Provides system/user prompt files, variable placeholders, output formatting instructions, and quality criteria. Use when building \"prompt templates\", \"LLM prompts\", \"AI system prompts\", or \"prompt engineering\"."
+  },
+  {
+    "path": ".claude/skills/quality-gates-enforcer/SKILL.md",
+    "name": "quality-gates-enforcer",
+    "description": "Enforces minimum quality thresholds in CI including code coverage, linting, type checking, and security scanning. Provides required checks, PR rules, and automated enforcement. Use for \"quality gates\", \"CI checks\", \"code quality\", or \"PR requirements\"."
+  },
+  {
+    "path": ".claude/skills/queue-job-processor/SKILL.md",
+    "name": "queue-job-processor",
+    "description": "Implements background job processing with BullMQ/Redis including job queues, workers, scheduling, retries, and monitoring. Use when users request \"background jobs\", \"queue processing\", \"async tasks\", \"BullMQ\", or \"job scheduler\"."
+  },
+  {
+    "path": ".claude/skills/rag-pipeline-builder/SKILL.md",
+    "name": "rag-pipeline-builder",
+    "description": "Designs retrieval-augmented generation pipelines for document-based AI assistants. Includes chunking strategies, metadata schemas, retrieval algorithms, reranking, and evaluation plans. Use when building \"RAG systems\", \"document search\", \"semantic search\", or \"knowledge bases\"."
+  },
+  {
+    "path": ".claude/skills/rate-limiting-abuse-protection/SKILL.md",
+    "name": "rate-limiting-abuse-protection",
+    "description": "Implements rate limiting and abuse prevention with per-route policies, IP/user-based limits, sliding windows, safe error responses, and observability. Use when adding \"rate limiting\", \"API protection\", \"abuse prevention\", or \"DDoS protection\"."
+  },
+  {
+    "path": ".claude/skills/rbac-permissions-builder/SKILL.md",
+    "name": "rbac-permissions-builder",
+    "description": "Implements role-based access control with permission matrix, route guards, policy functions, and UI permission hints. Provides middleware/guards, helper utilities, test suggestions, and permission checking patterns. Use when building \"RBAC\", \"permissions\", \"access control\", or \"authorization\"."
+  },
+  {
+    "path": ".claude/skills/rbac-policy-tester/SKILL.md",
+    "name": "rbac-policy-tester",
+    "description": "Creates comprehensive permission tests ensuring RBAC doesn't regress with test matrices, CI gating, and authorization coverage. Use for \"RBAC testing\", \"permission tests\", \"authorization testing\", or \"access control tests\"."
+  },
+  {
+    "path": ".claude/skills/react-hook-builder/SKILL.md",
+    "name": "react-hook-builder",
+    "description": "Creates custom React hooks for common patterns including data fetching, forms, authentication, local storage, debounce, and more. Use when users request \"create custom hook\", \"React hook for\", \"useX hook\", or \"reusable hook\"."
+  },
+  {
+    "path": ".claude/skills/react-server-components/SKILL.md",
+    "name": "react-server-components",
+    "description": "Implements React Server Components (RSC) patterns with Next.js App Router including data fetching, streaming, selective hydration, and server/client composition. Use when users request \"server components\", \"RSC\", \"Next.js app router\", \"server-side rendering\", or \"streaming\"."
+  },
+  {
+    "path": ".claude/skills/readme-generator/SKILL.md",
+    "name": "readme-generator",
+    "description": "Generates comprehensive README files with badges, installation, usage, API docs, and contribution guidelines. Use when users request \"README\", \"project documentation\", \"readme template\", \"documentation generator\", or \"project setup docs\"."
+  },
+  {
+    "path": ".claude/skills/redis-patterns/SKILL.md",
+    "name": "redis-patterns",
+    "description": "Implements Redis patterns for caching, sessions, rate limiting, pub/sub, and distributed locks with best practices. Use when users request \"Redis caching\", \"session storage\", \"rate limiter\", \"pub/sub messaging\", or \"distributed locks\"."
+  },
+  {
+    "path": ".claude/skills/release-automation-builder/SKILL.md",
+    "name": "release-automation-builder",
+    "description": "Automates releases and package publishing with changesets or semantic-release. Handles versioning, changelog generation, git tags, and release notes. Use for \"release automation\", \"semantic versioning\", \"package publishing\", or \"changelog generation\"."
+  },
+  {
+    "path": ".claude/skills/reliability-strategy-builder/SKILL.md",
+    "name": "reliability-strategy-builder",
+    "description": "Implements reliability patterns including circuit breakers, retries, fallbacks, bulkheads, and SLO definitions. Provides failure mode analysis and incident response plans. Use for \"SRE\", \"reliability\", \"resilience\", or \"failure handling\"."
+  },
+  {
+    "path": ".claude/skills/repo-structure-linter/SKILL.md",
+    "name": null,
+    "description": null
+  },
+  {
+    "path": ".claude/skills/responsive-design-system/SKILL.md",
+    "name": "responsive-design-system",
+    "description": "Implements responsive design systems with mobile-first breakpoints, container queries, fluid typography, and adaptive layouts using Tailwind CSS. Use when users request \"responsive design\", \"mobile-first\", \"breakpoints\", \"fluid typography\", or \"adaptive layout\"."
+  },
+  {
+    "path": ".claude/skills/rest-to-graphql-migrator/SKILL.md",
+    "name": "rest-to-graphql-migrator",
+    "description": "Migrates REST APIs to GraphQL incrementally with schema stitching, REST datasources, and gradual endpoint migration. Use when users request \"migrate to GraphQL\", \"REST to GraphQL\", \"GraphQL wrapper\", or \"API modernization\"."
+  },
+  {
+    "path": ".claude/skills/rfc-generator/SKILL.md",
+    "name": "rfc-generator",
+    "description": "Generates Request for Comments documents for technical proposals including problem statement, solution design, alternatives, risks, and rollout plans. Use for \"RFC\", \"technical proposals\", \"design docs\", or \"architecture proposals\"."
+  },
+  {
+    "path": ".claude/skills/rollback-workflow-builder/SKILL.md",
+    "name": "rollback-workflow-builder",
+    "description": "Creates safe rollback procedures for deployments with automated workflows, rollback runbooks, version management, and incident response. Use for \"rollback automation\", \"deployment recovery\", \"incident response\", or \"production rollback\"."
+  },
+  {
+    "path": ".claude/skills/scalability-playbook/SKILL.md",
+    "name": "scalability-playbook",
+    "description": "Identifies performance bottlenecks and provides ordered scaling strategies with triggers, phased plans, and cost implications. Use for \"scalability planning\", \"performance bottlenecks\", \"capacity planning\", or \"growth strategy\"."
+  },
+  {
+    "path": ".claude/skills/schema-consistency-checker/SKILL.md",
+    "name": "schema-consistency-checker",
+    "description": "Audits database schemas for naming conventions, type consistency, nullability patterns, and missing constraints. Provides violations report with recommended fixes. Use for \"schema validation\", \"database linting\", \"schema standards\", or \"consistency checks\"."
+  },
+  {
+    "path": ".claude/skills/secrets-env-manager/SKILL.md",
+    "name": "secrets-env-manager",
+    "description": "Validates environment variables in CI, prevents secret leaks, enforces masking, and provides fail-fast validation with clear documentation. Use for \"secrets management\", \"env var validation\", \"credential security\", or \"secret masking\"."
+  },
+  {
+    "path": ".claude/skills/secrets-scanner/SKILL.md",
+    "name": "secrets-scanner",
+    "description": "Detects leaked API keys, tokens, passwords, and credentials in code with pre-commit hooks, CI checks, scanning rules, and remediation procedures. Use for \"secret scanning\", \"credential detection\", \"API key leaks\", or \"secret management\"."
+  },
+  {
+    "path": ".claude/skills/secure-headers-csp-builder/SKILL.md",
+    "name": "secure-headers-csp-builder",
+    "description": "Implements security headers and Content Security Policy with safe rollout strategy (report-only → enforce), testing, and compatibility checks. Use for \"security headers\", \"CSP\", \"HTTP headers\", or \"XSS protection\"."
+  },
+  {
+    "path": ".claude/skills/security-incident-playbook-generator/SKILL.md",
+    "name": "security-incident-playbook-generator",
+    "description": "Creates response procedures for security incidents with containment steps, communication templates, and evidence collection. Use for \"incident response\", \"security playbook\", \"breach response\", or \"IR plan\"."
+  },
+  {
+    "path": ".claude/skills/security-pr-checklist-skill/SKILL.md",
+    "name": "security-pr-checklist-skill",
+    "description": "Creates repeatable security review checklist for PRs with required checks, common pitfalls, and automated gating. Use for \"security review\", \"PR checklist\", \"code review\", or \"security gates\"."
+  },
+  {
+    "path": ".claude/skills/service-layer-extractor/SKILL.md",
+    "name": "service-layer-extractor",
+    "description": "Refactors route handlers into service layer with clean boundaries, dependency injection, testability, and separation of concerns. Provides service interfaces, folder structure, testing strategy, and migration plan. Use when refactoring \"fat controllers\", \"business logic\", \"service layer\", or \"architecture cleanup\"."
+  },
+  {
+    "path": ".claude/skills/skill-creator/SKILL.md",
+    "name": "skill-creator",
+    "description": "Creates new Claude Code skills following repository conventions with proper structure, frontmatter, workflows, code examples, and reference files. Use when users request \"create a skill\", \"new skill\", \"generate skill\", or \"add skill to collection\"."
+  },
+  {
+    "path": ".claude/skills/snapshot-test-refactorer/SKILL.md",
+    "name": "snapshot-test-refactorer",
+    "description": "Refactors brittle snapshot tests into resilient, focused assertions. Provides strategies for reducing snapshot size, extracting meaningful assertions, and maintaining snapshots. Use for \"snapshot testing\", \"snapshot refactoring\", \"brittle tests\", or \"assertion improvement\"."
+  },
+  {
+    "path": ".claude/skills/sql-query-optimizer/SKILL.md",
+    "name": "sql-query-optimizer",
+    "description": "Analyzes and optimizes SQL queries using EXPLAIN plans, index recommendations, query rewrites, and performance benchmarking. Use for \"query optimization\", \"slow queries\", \"database performance\", or \"EXPLAIN analysis\"."
+  },
+  {
+    "path": ".claude/skills/state-ux-flow-builder/SKILL.md",
+    "name": "state-ux-flow-builder",
+    "description": "Standardizes UX states for data fetching flows (loading, error, empty, success) and complex multi-view UI patterns. Provides state machine approach recommendations, loading skeletons, error boundaries, and empty state components. Use when implementing \"loading states\", \"error handling\", \"empty states\", or \"state machines\"."
+  },
+  {
+    "path": ".claude/skills/storybook-setup/SKILL.md",
+    "name": "storybook-setup",
+    "description": "Sets up Storybook for component documentation with controls, actions, accessibility testing, and visual regression. Use when users request \"Storybook setup\", \"component documentation\", \"UI library\", \"component stories\", or \"design system docs\"."
+  },
+  {
+    "path": ".claude/skills/structured-logging-standardizer/SKILL.md",
+    "name": "structured-logging-standardizer",
+    "description": "Enforces consistent structured logging with request correlation IDs, standardized log schema, middleware integration, and best practices. Use for \"structured logging\", \"log standardization\", \"request tracing\", or \"log correlation\"."
+  },
+  {
+    "path": ".claude/skills/structured-output-extractor/SKILL.md",
+    "name": "structured-output-extractor",
+    "description": "Extracts structured data from LLM responses using JSON schemas, Zod validation, and function calling for reliable parsing. Use when users request \"structured output\", \"JSON extraction\", \"parse LLM response\", \"function calling\", or \"typed responses\"."
+  },
+  {
+    "path": ".claude/skills/system-design-generator/SKILL.md",
+    "name": "system-design-generator",
+    "description": "Produces comprehensive system architecture plans for features and products including component breakdown, data flow diagrams, system boundaries, API contracts, and scaling considerations. Use for \"system design\", \"architecture planning\", \"feature design\", or \"technical specs\"."
+  },
+  {
+    "path": ".claude/skills/table-builder/SKILL.md",
+    "name": "table-builder",
+    "description": "Creates data table patterns with filtering, sorting, pagination, row actions, column configuration, server/client rendering modes, and empty/loading states. Use when building \"data tables\", \"list views\", \"admin tables\", or \"data grids\"."
+  },
+  {
+    "path": ".claude/skills/tailwind-gradient-builder/SKILL.md",
+    "name": "tailwind-gradient-builder",
+    "description": "Creates modern CSS gradients using Tailwind CSS including linear, radial, conic, mesh gradients, animated gradients, glassmorphism, and gradient text effects. Use when users request \"gradient background\", \"tailwind gradient\", \"modern gradient\", \"mesh gradient\", or \"animated gradient\"."
+  },
+  {
+    "path": ".claude/skills/tanstack-query-setup/SKILL.md",
+    "name": "tanstack-query-setup",
+    "description": "Implements TanStack Query (React Query) for server state management with caching, mutations, optimistic updates, and infinite queries. Use when users request \"react query\", \"tanstack query\", \"data fetching\", \"cache management\", or \"server state\"."
+  },
+  {
+    "path": ".claude/skills/tech-debt-prioritizer/SKILL.md",
+    "name": "tech-debt-prioritizer",
+    "description": "Scores and prioritizes technical debt by impact, risk, and effort. Provides ranked backlog with ROI analysis and quarterly paydown recommendations. Use for \"tech debt\", \"technical debt management\", \"code quality\", or \"refactoring priorities\"."
+  },
+  {
+    "path": ".claude/skills/terraform-module-builder/SKILL.md",
+    "name": "terraform-module-builder",
+    "description": "Creates reusable Terraform modules with proper structure, variables, outputs, and state management for infrastructure as code. Use when users request \"Terraform setup\", \"infrastructure as code\", \"IaC module\", \"cloud provisioning\", or \"Terraform module\"."
+  },
+  {
+    "path": ".claude/skills/test-data-factory-builder/SKILL.md",
+    "name": "test-data-factory-builder",
+    "description": "Creates factories and builders for generating consistent, composable test data with realistic values and relationship handling. Use for \"test factories\", \"test data builders\", \"fixture factories\", or \"test data generation\"."
+  },
+  {
+    "path": ".claude/skills/test-reporting-triage-skill/SKILL.md",
+    "name": "test-reporting-triage-skill",
+    "description": "Automatically categorizes test failures, suggests responsible owners, and provides common fix checklists. Generates actionable test reports with failure analysis. Use for \"test reporting\", \"failure triage\", \"test analysis\", or \"test automation\"."
+  },
+  {
+    "path": ".claude/skills/threat-model-generator/SKILL.md",
+    "name": "threat-model-generator",
+    "description": "Creates comprehensive threat models using STRIDE methodology with asset identification, threat enumeration, mitigation strategies, and residual risk assessment. Use for \"threat modeling\", \"security analysis\", \"STRIDE\", or \"risk assessment\"."
+  },
+  {
+    "path": ".claude/skills/tool-function-schema-designer/SKILL.md",
+    "name": "tool-function-schema-designer",
+    "description": "Designs robust function/tool calling schemas for LLMs with JSON schemas, validation strategies, typed interfaces, and example calls. Use when implementing \"function calling\", \"tool use\", \"LLM tools\", or \"agent actions\"."
+  },
+  {
+    "path": ".claude/skills/typescript-strict-migrator/SKILL.md",
+    "name": "typescript-strict-migrator",
+    "description": "Migrates TypeScript projects to strict mode incrementally with type guards, utility types, and best practices. Use when users request \"TypeScript strict\", \"strict mode migration\", \"type safety\", \"strict TypeScript\", or \"ts-strict\"."
+  },
+  {
+    "path": ".claude/skills/unit-test-generator/SKILL.md",
+    "name": "unit-test-generator",
+    "description": "Generates comprehensive unit tests with AAA pattern (Arrange-Act-Assert), edge cases, error scenarios, and coverage analysis. Creates test files matching source structure with complete test suites. Use for \"unit testing\", \"test generation\", \"Jest tests\", or \"test coverage\"."
+  },
+  {
+    "path": ".claude/skills/vector-db-setup/SKILL.md",
+    "name": "vector-db-setup",
+    "description": "Sets up vector databases for semantic search including Pinecone, Chroma, pgvector, and Qdrant with embedding generation and similarity search. Use when users request \"vector database\", \"semantic search\", \"embeddings storage\", \"Pinecone setup\", or \"similarity search\"."
+  },
+  {
+    "path": ".claude/skills/visual-regression-tester/SKILL.md",
+    "name": "visual-regression-tester",
+    "description": "Implements visual regression testing with screenshot comparison, diff detection, and CI integration using Playwright or Chromatic. Use when users request \"visual testing\", \"screenshot testing\", \"UI regression\", \"visual diff\", or \"Chromatic setup\"."
+  },
+  {
+    "path": ".claude/skills/vscode-rest-client-generator/SKILL.md",
+    "name": "vscode-rest-client-generator",
+    "description": "Generates .http files for the VS Code REST Client extension from Express, Next.js, Fastify, or other API routes. Creates organized request files with variables, environments, and authentication. Use when users request \"generate http files\", \"rest client requests\", \"create .http file\", or \"vscode api testing\"."
+  },
+  {
+    "path": ".claude/skills/vscode-workspace-setup/SKILL.md",
+    "name": "vscode-workspace-setup",
+    "description": "Configures VS Code workspaces with optimal settings, extensions, tasks, and debugging for team consistency. Use when users request \"VS Code setup\", \"workspace settings\", \"team VS Code config\", \"editor configuration\", or \"devcontainer setup\"."
+  },
+  {
+    "path": ".claude/skills/webhook-receiver-hardener/SKILL.md",
+    "name": "webhook-receiver-hardener",
+    "description": "Secures webhook receivers with signature verification, retry handling, deduplication, idempotency keys, and error responses. Provides verification code, dedupe storage strategy, runbook for incidents. Use when implementing \"webhooks\", \"webhook security\", \"event receivers\", or \"third-party integrations\"."
+  },
+  {
+    "path": ".claude/skills/websocket-realtime-builder/SKILL.md",
+    "name": "websocket-realtime-builder",
+    "description": "Implements real-time features using WebSockets with Socket.io, rooms, authentication, and reconnection handling. Use when users request \"real-time updates\", \"WebSocket\", \"Socket.io\", \"live chat\", or \"push notifications\"."
+  },
+  {
+    "path": ".claude/skills/zustand-state-builder/SKILL.md",
+    "name": "zustand-state-builder",
+    "description": "Implements lightweight state management using Zustand with TypeScript, persistence, devtools, and modular store patterns. Use when users request \"zustand store\", \"state management\", \"global state\", \"zustand setup\", or \"jotai alternative\"."
+  },
+  {
+    "path": "skills/.system/skill-creator/SKILL.md",
+    "name": "skill-creator",
+    "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations."
+  },
+  {
+    "path": "skills/.system/skill-installer/SKILL.md",
+    "name": "skill-installer",
+    "description": "Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos)."
+  },
+  {
+    "path": "skills/brainstorming/SKILL.md",
+    "name": "brainstorming",
+    "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+  },
+  {
+    "path": "skills/create-plan/SKILL.md",
+    "name": "create-plan",
+    "description": "Create a concise plan. Use when a user explicitly asks for a plan related to a coding task."
+  },
+  {
+    "path": "skills/dispatching-parallel-agents/SKILL.md",
+    "name": "dispatching-parallel-agents",
+    "description": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies"
+  },
+  {
+    "path": "skills/executing-plans/SKILL.md",
+    "name": "executing-plans",
+    "description": "Use when you have a written implementation plan to execute in a separate session with review checkpoints"
+  },
+  {
+    "path": "skills/finishing-a-development-branch/SKILL.md",
+    "name": "finishing-a-development-branch",
+    "description": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup"
+  },
+  {
+    "path": "skills/gh-address-comments/SKILL.md",
+    "name": "gh-address-comments",
+    "description": "Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in."
+  },
+  {
+    "path": "skills/gh-fix-ci/SKILL.md",
+    "name": "gh-fix-ci",
+    "description": "Inspect GitHub PR checks with gh, pull failing GitHub Actions logs, summarize failure context, then create a fix plan and implement after user approval. Use when a user asks to debug or fix failing PR CI/CD checks on GitHub Actions and wants a plan + code changes; for external checks (e.g., Buildkite), only report the details URL and mark them out of scope."
+  },
+  {
+    "path": "skills/notion-knowledge-capture/SKILL.md",
+    "name": "notion-knowledge-capture",
+    "description": "Capture conversations and decisions into structured Notion pages; use when turning chats/notes into wiki entries, how-tos, decisions, or FAQs with proper linking."
+  },
+  {
+    "path": "skills/notion-meeting-intelligence/SKILL.md",
+    "name": "notion-meeting-intelligence",
+    "description": "Prepare meeting materials with Notion context and Codex research; use when gathering context, drafting agendas/pre-reads, and tailoring materials to attendees."
+  },
+  {
+    "path": "skills/notion-research-documentation/SKILL.md",
+    "name": "notion-research-documentation",
+    "description": "Research across Notion and synthesize into structured documentation; use when gathering info from multiple Notion sources to produce briefs, comparisons, or reports with citations."
+  },
+  {
+    "path": "skills/notion-spec-to-implementation/SKILL.md",
+    "name": "notion-spec-to-implementation",
+    "description": "Turn Notion specs into implementation plans, tasks, and progress tracking; use when implementing PRDs/feature specs and creating Notion plans + tasks from them."
+  },
+  {
+    "path": "skills/python-dev-handbook/SKILL.md",
+    "name": "python-dev-handbook",
+    "description": "當要開發或修改 Python 程式碼時使用。"
+  },
+  {
+    "path": "skills/receiving-code-review/SKILL.md",
+    "name": "receiving-code-review",
+    "description": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation"
+  },
+  {
+    "path": "skills/req-to-codex-prompt/SKILL.md",
+    "name": "req-to-executable-prompt",
+    "description": "|"
+  },
+  {
+    "path": "skills/requesting-code-review/SKILL.md",
+    "name": "requesting-code-review",
+    "description": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements"
+  },
+  {
+    "path": "skills/subagent-driven-development/SKILL.md",
+    "name": "subagent-driven-development",
+    "description": "Use when executing implementation plans with independent tasks in the current session"
+  },
+  {
+    "path": "skills/systematic-debugging/SKILL.md",
+    "name": "systematic-debugging",
+    "description": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes"
+  },
+  {
+    "path": "skills/test-driven-development/SKILL.md",
+    "name": "test-driven-development",
+    "description": "Use when implementing any feature or bugfix, before writing implementation code"
+  },
+  {
+    "path": "skills/using-git-worktrees/SKILL.md",
+    "name": "using-git-worktrees",
+    "description": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification"
+  },
+  {
+    "path": "skills/using-superpowers/SKILL.md",
+    "name": "using-superpowers",
+    "description": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions"
+  },
+  {
+    "path": "skills/verification-before-completion/SKILL.md",
+    "name": "verification-before-completion",
+    "description": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always"
+  },
+  {
+    "path": "skills/writing-plans/SKILL.md",
+    "name": "writing-plans",
+    "description": "Use when you have a spec or requirements for a multi-step task, before touching code"
+  },
+  {
+    "path": "skills/writing-skills/SKILL.md",
+    "name": "writing-skills",
+    "description": "Use when creating new skills, editing existing skills, or verifying skills work before deployment"
+  }
+]

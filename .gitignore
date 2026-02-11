@@ -78,9 +78,18 @@ vllm-server/vllm_log.txt
 web_client/node_modules/
 web_client/dist/
 
-.gemini/
+
 gha-creds-*.json
+
+# AI tools
+.gemini/
+.gemini-clipboard/
 .agent/
 .antigravity
 .claude/
 .github/
+.pytest_cache/
+
+# models cache
+models/
+models_gguf/

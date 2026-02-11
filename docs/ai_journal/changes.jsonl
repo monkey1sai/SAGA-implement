@@ -1,0 +1,15 @@
+{"ts":"2026-02-02T08:00:00Z","action":"create","files":["rag_core/__init__.py","rag_core/config.py","rag_core/pyproject.toml","rag_core/README.md"],"summary":"建立 rag_core 套件骨架與設定","verify":"python -c 'import rag_core' 無錯誤"}
+{"ts":"2026-02-02T08:10:00Z","action":"create","files":["rag_core/embeddings/base.py","rag_core/embeddings/bge_m3.py","rag_core/embeddings/__init__.py"],"summary":"實作嵌入模型抽象層與 BGE-M3","verify":"from rag_core import BGEM3Embedding 無錯誤"}
+{"ts":"2026-02-02T08:20:00Z","action":"create","files":["rag_core/retrievers/base.py","rag_core/retrievers/dense.py","rag_core/retrievers/sparse.py","rag_core/retrievers/hybrid.py","rag_core/retrievers/__init__.py"],"summary":"實作 Dense/Sparse/Hybrid 檢索器","verify":"from rag_core import HybridRetriever 無錯誤"}
+{"ts":"2026-02-02T08:30:00Z","action":"create","files":["rag_core/rerankers/base.py","rag_core/rerankers/bge_reranker.py","rag_core/rerankers/__init__.py"],"summary":"實作 BGE 重排序器","verify":"from rag_core import BGEReranker 無錯誤"}
+{"ts":"2026-02-02T08:40:00Z","action":"create","files":["rag_core/ingest/base.py","rag_core/ingest/multimodal.py","rag_core/ingest/__init__.py"],"summary":"實作多模態文件載入器","verify":"from rag_core.ingest import MultimodalIngestor 無錯誤"}
+{"ts":"2026-02-02T08:50:00Z","action":"create","files":["rag_core/server.py"],"summary":"建立 RAG FastAPI 獨立服務","verify":"curl http://localhost:8100/health 回傳 200"}
+{"ts":"2026-02-02T09:00:00Z","action":"delete","files":["ws_gateway_tts/","docker/ws_gateway_tts.Dockerfile"],"summary":"移除 TTS 語音模組","verify":"目錄不存在"}
+{"ts":"2026-02-02T09:10:00Z","action":"modify","files":["docker-compose.yml"],"summary":"移除 TTS 服務、新增 RAG 服務","verify":"docker compose config 無錯誤"}
+{"ts":"2026-02-02T09:20:00Z","action":"create","files":["docker/rag.Dockerfile"],"summary":"建立 RAG 服務 Dockerfile","verify":"docker build -f docker/rag.Dockerfile . 成功"}
+{"ts":"2026-02-02T09:30:00Z","action":"modify","files":["web_client/src/App.jsx","web_client/src/style.css"],"summary":"重寫前端為純文字聊天介面","verify":"npm run build 無錯誤"}
+{"ts":"2026-02-02T09:40:00Z","action":"create","files":["web_client/src/components/MessageList.jsx","web_client/src/components/InputBar.jsx","web_client/src/components/DocumentUpload.jsx"],"summary":"建立聊天 UI 元件","verify":"npm run build 無錯誤"}
+{"ts":"2026-02-02T09:50:00Z","action":"modify","files":["orchestrator/server.py"],"summary":"重寫 orchestrator 整合 RAG、移除 TTS","verify":"python -m py_compile orchestrator/server.py 無錯誤"}
+{"ts":"2026-02-02T10:00:00Z","action":"modify","files":["docker/web_default.conf.template"],"summary":"更新 Nginx 路由支援 RAG API","verify":"nginx -t 無錯誤"}
+{"ts":"2026-02-02T10:10:00Z","action":"modify","files":["README.md"],"summary":"更新專案文件","verify":"檢視 README.md 內容正確"}
+{"ts":"2026-02-11T05:25:00Z","action":"modify","files":[".gitignore","docs/current_task.md","docker/rag.Dockerfile","docs/ai_journal/","docs/skill_index.json","rag_core/","web_client/src/components/"],"summary":"GitHub repo 從 sglangRAG 改名為 SAGA-implement，並提交所有待定變更（RAG 模組、前端元件、Dockerfile、文件等）","verify":"git log -1 確認 commit 訊息正確；git remote -v 確認 origin 指向 SAGA-implement"}
